@@ -8,19 +8,21 @@ const TaskListTitle = props => {
   const [editing, setEditing] = useState(false);
   const useStyle = makeStyles((theme) => ({
     editableTitleContainer: {
-      display: "flex",
+      display:"flex",
+      justifyContent:"space-between"
     },
     editableTitle: {
       marginLeft:theme.spacing(1),
-      flexGrow: 1
+    
     }, 
     editableTitleInput : {
       margin: theme.spacing(1), 
       "&:focus":{
-        background: "#ddd"
+        background:"#ddd"
       }
     }
-  }))
+  }));
+
   const classes = useStyle();
   return (
   <div>
