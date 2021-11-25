@@ -33,6 +33,7 @@ const TaskListTitle = props => {
         }}
         fullWidth
         onBlur = {() => setEditing(prev => !prev)}
+        autoFocus
         />
         </div>}
     {!editing && <div className={classes.editableTitleContainer}>
