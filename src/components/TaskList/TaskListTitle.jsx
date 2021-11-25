@@ -8,18 +8,32 @@ const TaskListTitle = props => {
   const [editing, setEditing] = useState(false);
   const useStyle = makeStyles((theme) => ({
     editableTitleContainer: {
-      marginLeft:theme.spacing(1),
-      display: "flex"
+      display: "flex",
     },
     editableTitle: {
       marginLeft:theme.spacing(1),
       flexGrow: 1
     }, 
+    editableTitleInput : {
+      margin: theme.spacing(1), 
+      "&:focus":{
+        background: "#ddd"
+      }
+    }
   }))
   const classes = useStyle();
   return (
   <div>
-    {editing && <div><InputBase value="ToDo"/></div>}
+    {editing && <div>
+      <InputBase 
+        value="ToDo"
+        inputProps={{
+          className: classes.editableTitleInput
+        }}
+        fullWidth
+        onBlur = {() => setEditing(prev => !prev)}
+        />
+        </div>}
     {!editing && <div className={classes.editableTitleContainer}>
       <Typography 
         onClick={() => setEditing(prev => !prev)}
