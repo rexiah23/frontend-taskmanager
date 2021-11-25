@@ -1,7 +1,8 @@
 import React from 'react';
-import { Paper, Typography, CssBaseline } from '@material-ui/core';
+import { Paper, CssBaseline } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import TaskListTitle from './TaskListTitle';
+import TaskCard from '../../ui/TaskCard';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -17,7 +18,10 @@ const TaskList = props => {
   <div>
     <Paper className={classes.root}>
       <CssBaseline />
-      <TaskListTitle></TaskListTitle>
+      <TaskListTitle />
+      <TaskCard/>
+      <TaskCard/>
+      <TaskCard/>
     </Paper>
   </div>);
 }

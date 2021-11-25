@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { InputBase, Typography } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { flexbox } from '@mui/system';
 
 const TaskListTitle = props => {
   const [editing, setEditing] = useState(false);
