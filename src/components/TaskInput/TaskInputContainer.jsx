@@ -1,6 +1,7 @@
 import React from 'react';
 import { Paper, Typography } from '@material-ui/core';
 import { makeStyles, fade } from "@material-ui/core/styles";
+import TaskInputCard from '../../ui/Cards/TaskInputCard';
 
 
 const useStyle = makeStyles((theme) => ({
@@ -22,6 +23,7 @@ const TaskInputContainer = props => {
 
   return (
     <div className={classes.root}>
+      <TaskInputCard />
       <Paper className={classes.addTask}>
         <Typography>
           + Add a new task
