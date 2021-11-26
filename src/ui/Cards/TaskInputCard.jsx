@@ -14,7 +14,7 @@ const useStyle = makeStyles((theme) => ({
   }
 }))
 
-const TaskInputCard = props => {
+const TaskInputCard = ({ setShowInput }) => {
   const classes = useStyle(); 
 
   return (
@@ -29,10 +29,10 @@ const TaskInputCard = props => {
         </Paper>
       </div>
       <div>
-        <Button className={classes.confirmButton}>
+        <Button className={classes.confirmButton} onClick={() => setShowInput(false)}>
           Add Task
         </Button>
-        <IconButton>
+        <IconButton onClick={() => setShowInput(false)}>
           <ClearIcon />
         </IconButton>
       </div>

@@ -25,13 +25,13 @@ const TaskInputContainer = props => {
   return (
     <div className={classes.root}>
       <Collapse in={showInput}>
-        <TaskInputCard />
+        <TaskInputCard setShowInput={setShowInput}/>
       </Collapse>
       <Collapse in={!showInput}>
         <Paper 
           className={classes.addTask} 
           elevation={0}
-          onClick={() => setShowInput(prev => !prev)}
+          onClick={() => setShowInput(true)}
           >
           <Typography>
             + Add a new card
