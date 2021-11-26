@@ -6,7 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyle = makeStyles((theme) => ({
   taskCard: {
     padding: theme.spacing(1,1,1,2),
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
+    textAlign: 'left'
   }
 }))
 

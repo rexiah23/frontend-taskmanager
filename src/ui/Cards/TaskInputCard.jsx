@@ -5,8 +5,12 @@ import ClearIcon from "@material-ui/icons/Clear";
 
 const useStyle = makeStyles((theme) => ({
   taskInputCard: {
-    padding: theme.spacing(1,1,1,2),
+    paddingBottom: theme.spacing(3),
     margin: theme.spacing(1)
+  },
+  confirmButton: {
+    background: 'blue',
+    color: '#fff'
   }
 }))
 
@@ -17,11 +21,17 @@ const TaskInputCard = props => {
     <div>
       <div>
         <Paper className={classes.taskInputCard}>
-          <InputBase multiline fullWidth />
+          <InputBase 
+            multiline 
+            fullWidth 
+            placeholder="Enter a title for this card..."
+          />
         </Paper>
       </div>
       <div>
-        <Button>Add Task</Button>
+        <Button className={classes.confirmButton}>
+          Add Task
+        </Button>
         <IconButton>
           <ClearIcon />
         </IconButton>

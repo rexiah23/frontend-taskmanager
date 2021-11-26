@@ -1,5 +1,5 @@
-import React from 'react';
-import { Paper, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Collapse, Paper, Typography } from '@material-ui/core';
 import { makeStyles, fade } from "@material-ui/core/styles";
 import TaskInputCard from '../../ui/Cards/TaskInputCard';
 
@@ -19,16 +19,25 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 const TaskInputContainer = props => {
+  const [showInput, setShowInput] = useState(false);
   const classes = useStyle(); 
 
   return (
     <div className={classes.root}>
-      <TaskInputCard />
-      <Paper className={classes.addTask}>
-        <Typography>
-          + Add a new task
-        </Typography>
-      </Paper>
+      <Collapse in={showInput}>
+        <TaskInputCard />
+      </Collapse>
+      <Collapse in={!showInput}>
+        <Paper 
+          className={classes.addTask} 
+          elevation={0}
+          onClick={() => setShowInput(prev => !prev)}
+          >
+          <Typography>
+            + Add a new card
+          </Typography>
+        </Paper>
+      </Collapse>
     </div>
   )
 }
