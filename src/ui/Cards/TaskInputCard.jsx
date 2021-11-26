@@ -23,6 +23,7 @@ const TaskInputCard = ({ setShowInput }) => {
         <Paper className={classes.taskInputCard}>
           <InputBase 
             multiline 
+            onBlur = {() => setShowInput(false)}
             fullWidth 
             placeholder="Enter a title for this card..."
           />
