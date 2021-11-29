@@ -8,7 +8,9 @@ const useStyle = makeStyles(theme => ({
   root: {
     display: 'flex', 
     minHeight: '100vh',
-    background: 'green'
+    background: 'green',
+    width: '100%', 
+    overflowY: 'auto'
   }
 }))
 

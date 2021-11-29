@@ -12,7 +12,7 @@ const useStyle = makeStyles((theme) => ({
     marginLeft:theme.spacing(1),
     marginTop: theme.spacing(1)
   }
-}))
+}));
 
 const TaskList = ({ list }) => {
   const classes = useStyle();
@@ -26,7 +26,8 @@ const TaskList = ({ list }) => {
       {taskCards}
       <TaskInputContainer listId={list.id} type={"task"}/>
     </Paper>
-  </div>);
-}
+  </div>
+  );
+};
 
 export default TaskList;

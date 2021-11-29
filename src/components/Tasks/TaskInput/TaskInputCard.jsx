@@ -6,6 +6,7 @@ import { AllTasksContext } from '../../../providers/AllTasksContext';
 
 const useStyle = makeStyles((theme) => ({
   taskInputCard: {
+    width: '280px',
     paddingBottom: theme.spacing(3),
     margin: theme.spacing(1)
   },
