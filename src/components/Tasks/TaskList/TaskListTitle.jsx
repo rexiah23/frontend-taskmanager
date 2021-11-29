@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { InputBase, Typography } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { AllTasksContext } from '../../../providers/AllTasksContext';
 
-const TaskListTitle = ({ title }) => {
+const TaskListTitle = ({ title, listId }) => {
   const [editing, setEditing] = useState(false);
+  const [newTitle, setNewTitle] = useState(title);
+  const { updateListTitle } = useContext(AllTasksContext);
+
   const useStyle = makeStyles((theme) => ({
     editableTitleContainer: {
       display:"flex",
@@ -22,18 +26,29 @@ const TaskListTitle = ({ title }) => {
     }
   }));
 
+  const newTitleHandler = event => {
+    setNewTitle(event.target.value);
+  }
+
+  const blurHandler = () => {
+    updateListTitle(newTitle, listId)
+    setEditing(false);
+    
+  }
+
   const classes = useStyle();
   return (
   <div>
     {editing && <div>
       <InputBase 
-        value={title}
+        value={newTitle}
         inputProps={{
           className: classes.editableTitleInput
         }}
         fullWidth
-        onBlur = {() => setEditing(prev => !prev)}
+        onBlur = {blurHandler}
         autoFocus
+        onChange={newTitleHandler}
         />
         </div>}
     {!editing && <div className={classes.editableTitleContainer}>

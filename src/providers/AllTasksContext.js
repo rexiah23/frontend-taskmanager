@@ -1,4 +1,3 @@
-import { ConstructionOutlined } from '@mui/icons-material';
 import React, { useState } from 'react';
 
 const AllTasksContext = React.createContext(); 
@@ -41,9 +40,9 @@ const AllTasksProvider = (props) => {
       dataCopy.lists[listId].tasks.push(newTask); 
       return dataCopy;
     });
-  }
+  };
 
-  const addNewList = (title) => {
+  const addNewList = title => {
     setData(prev => {
       const dataCopy = {...prev};
       const newListId = `list-${parseInt(dataCopy.listIds.length) + 1}`; 
@@ -56,10 +55,18 @@ const AllTasksProvider = (props) => {
       dataCopy.listIds.push(newListId); 
       return dataCopy; 
     });
-  }
+  };
+
+  const updateListTitle = (title, listId) => {
+    setData(prev => {
+      const dataCopy = {...prev};
+      dataCopy.lists[listId].title = title; 
+      return dataCopy; 
+    });
+  };
 
   return (
-    <AllTasksContext.Provider value={{tasks, data, addNewTask, addNewList}}>
+    <AllTasksContext.Provider value={{tasks, data, addNewTask, addNewList, updateListTitle}}>
       {props.children}
     </AllTasksContext.Provider>
   ) 

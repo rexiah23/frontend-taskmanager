@@ -22,7 +22,7 @@ const TaskList = ({ list }) => {
   <div>
     <Paper className={classes.root}>
       <CssBaseline />
-      <TaskListTitle title={list.title} />
+      <TaskListTitle title={list.title} listId={list.id}/>
       {taskCards}
       <TaskInputContainer listId={list.id} type={"task"}/>
     </Paper>

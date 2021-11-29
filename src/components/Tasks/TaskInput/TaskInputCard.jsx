@@ -44,7 +44,7 @@ const TaskInputCard = ({ setShowInput, listId, type }) => {
             multiline 
             onBlur = {() => setShowInput(false)}
             fullWidth 
-            placeholder={type === 'list' ? "Enter a new task..." : "Enter task title..."}
+            placeholder={type === 'list' ? "Enter a new list..." : "Enter a new task..."}
             value={title}
             onChange={titleChangeHandler}
           />
