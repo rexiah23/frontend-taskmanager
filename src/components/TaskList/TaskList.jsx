@@ -15,7 +15,7 @@ const useStyle = makeStyles((theme) => ({
 
 const TaskList = ({ list }) => {
   const classes = useStyle();
-  const taskCards = list.cards.map (card => <TaskCard key={card.id}/>); 
+  const taskCards = list.cards.map (card => <TaskCard key={card.id} card={card}/>); 
 
   return (
   <div>
