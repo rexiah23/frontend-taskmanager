@@ -1,14 +1,13 @@
-import { useState } from 'react';
-import './App.css';
-import TaskList from './components/TaskList/TaskList';
-import staticData from './data/staticData';
+import { useContext } from 'react';
+import TaskList from './components/Tasks/TaskList/TaskList';
+import { AllTasksContext } from './providers/AllTasksContext';
 
 function App() {
-  const [data, setData] = useState(staticData); 
+  const { data } = useContext(AllTasksContext);
 
   const allLists = data.listIds.map(listId => {
-    const currList = data.lists[listId]; 
-    return <TaskList key={listId} list={currList}/>
+    const list = data.lists[listId]; 
+    return <TaskList key={listId} list={list}/>
   });
 
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import { Paper, CssBaseline } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import TaskListTitle from './TaskListTitle';
-import TaskCard from '../../ui/Cards/TaskCard';
+import TaskCard from '../TaskCard';
 import TaskInputContainer from '../TaskInput/TaskInputContainer';
 
 const useStyle = makeStyles((theme) => ({
@@ -15,7 +15,7 @@ const useStyle = makeStyles((theme) => ({
 
 const TaskList = ({ list }) => {
   const classes = useStyle();
-  const taskCards = list.cards.map (card => <TaskCard key={card.id} card={card}/>); 
+  const taskCards = list.tasks.map (task => <TaskCard key={task.id} task={task} />); 
 
   return (
   <div>
@@ -23,7 +23,7 @@ const TaskList = ({ list }) => {
       <CssBaseline />
       <TaskListTitle title={list.title} />
       {taskCards}
-      <TaskInputContainer/>
+      <TaskInputContainer listId={list.id}/>
     </Paper>
   </div>);
 }
