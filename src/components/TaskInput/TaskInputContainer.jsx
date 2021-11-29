@@ -3,7 +3,6 @@ import { Collapse, Paper, Typography } from '@material-ui/core';
 import { makeStyles, fade } from "@material-ui/core/styles";
 import TaskInputCard from '../../ui/Cards/TaskInputCard';
 
-
 const useStyle = makeStyles((theme) => ({
   root: {
     marginTop: theme.spacing(3)

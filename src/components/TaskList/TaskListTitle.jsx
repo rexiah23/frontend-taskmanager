@@ -3,7 +3,7 @@ import { InputBase, Typography } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const TaskListTitle = props => {
+const TaskListTitle = ({ title }) => {
   const [editing, setEditing] = useState(false);
   const useStyle = makeStyles((theme) => ({
     editableTitleContainer: {
@@ -27,7 +27,7 @@ const TaskListTitle = props => {
   <div>
     {editing && <div>
       <InputBase 
-        value="ToDo"
+        value={title}
         inputProps={{
           className: classes.editableTitleInput
         }}
@@ -41,7 +41,7 @@ const TaskListTitle = props => {
         onClick={() => setEditing(prev => !prev)}
         className={classes.editableTitle}
         >
-        To Do
+        {title}
       </Typography>
       <ExpandMoreIcon />  
       </div>}

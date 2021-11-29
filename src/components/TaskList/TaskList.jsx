@@ -13,16 +13,16 @@ const useStyle = makeStyles((theme) => ({
   }
 }))
 
-const TaskList = props => {
+const TaskList = ({ list }) => {
   const classes = useStyle();
+  const taskCards = list.cards.map (card => <TaskCard key={card.id}/>); 
+
   return (
   <div>
     <Paper className={classes.root}>
       <CssBaseline />
-      <TaskListTitle />
-      <TaskCard/>
-      <TaskCard/>
-      <TaskCard/>
+      <TaskListTitle title={list.title} />
+      {taskCards}
       <TaskInputContainer/>
     </Paper>
   </div>);

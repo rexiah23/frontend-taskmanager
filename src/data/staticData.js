@@ -17,7 +17,7 @@ const data = {
   lists: {
     'list-1': {
       id: 'list-1',
-      title: 'Todo',
+      title: 'ToDo',
       cards,
     },
   },
