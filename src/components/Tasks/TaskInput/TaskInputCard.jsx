@@ -31,13 +31,18 @@ const TaskInputCard = ({ setShowInput, listId }) => {
     setShowInput(false);
   }
 
+  const blurHandler = () => {
+    setTaskTitle('');
+    setShowInput(false);
+  }
+
   return (
     <div>
       <div>
         <Paper className={classes.taskInputCard}>
           <InputBase 
             multiline 
-            onBlur = {() => setShowInput(false)}
+            onBlur = {blurHandler}
             fullWidth 
             placeholder="Enter a title for this card..."
             value={taskTitle}
