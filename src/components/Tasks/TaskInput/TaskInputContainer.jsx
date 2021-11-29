@@ -33,7 +33,7 @@ const TaskInputContainer = ({ listId, type }) => {
           onClick={() => setShowInput(true)}
           >
           <Typography>
-            {type === 'list' ? '+ Add a List' : 'Add a Task'}
+            {type === 'list' ? '+ Add a List' : '+ Add a Task'}
           </Typography>
         </Paper>
       </Collapse>

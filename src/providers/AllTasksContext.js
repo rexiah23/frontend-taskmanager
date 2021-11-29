@@ -32,17 +32,29 @@ const AllTasksProvider = (props) => {
 
   const addNewTask = (content, listId) => {
     setData(prev => {
-      const listsCopy = {...prev.lists};
-      const newTaskId = `task-${parseInt(listsCopy[listId].tasks.length) + 1}`; 
+      const dataCopy = {...prev};
+      const newTaskId = `task-${parseInt(dataCopy.lists[listId].tasks.length) + 1}`; 
       const newTask = { 
         id: newTaskId, 
         content
       }
-      listsCopy[listId].tasks.push(newTask); 
-      return {
-        ...prev, 
-       lists: listsCopy
-      };
+      dataCopy.lists[listId].tasks.push(newTask); 
+      return dataCopy;
+    });
+  }
+
+  const addNewList = (title) => {
+    setData(prev => {
+      const dataCopy = {...prev};
+      const newListId = `list-${parseInt(dataCopy.listIds.length) + 1}`; 
+      const newList =  {
+          id: newListId, 
+          title,
+          tasks: []
+        };
+      dataCopy.lists[newListId] = newList; 
+      dataCopy.listIds.push(newListId); 
+      return dataCopy; 
     });
   }
 

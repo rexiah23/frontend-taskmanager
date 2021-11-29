@@ -11,7 +11,8 @@ const useStyle = makeStyles((theme) => ({
   },
   confirmButton: {
     background: 'blue',
-    color: '#fff'
+    color: '#fff',
+    marginLeft:theme.spacing(1)
   }
 }));
 
@@ -29,7 +30,7 @@ const TaskInputCard = ({ setShowInput, listId, type }) => {
     if (type === 'task') {
       addNewTask(title, listId);
     } else {
-      addNewList(title, listId); 
+      addNewList(title); 
     }
     setTitle('');
     setShowInput(false);
