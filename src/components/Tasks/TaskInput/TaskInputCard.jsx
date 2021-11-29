@@ -15,24 +15,23 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-const TaskInputCard = ({ setShowInput, listId }) => {
+const TaskInputCard = ({ setShowInput, listId, type }) => {
   const classes = useStyle(); 
-  const [taskTitle, setTaskTitle] = useState('')
-  const { addNewTask } = useContext(AllTasksContext); 
+  const [title, setTitle] = useState('')
+  const { addNewTask, addNewList } = useContext(AllTasksContext); 
 
 
   const titleChangeHandler = event => {
-    setTaskTitle(event.target.value); 
+    setTitle(event.target.value); 
   }
 
   const addNewTaskHandler = () => {
-    addNewTask(taskTitle, listId);
-    setTaskTitle('');
-    setShowInput(false);
-  }
-
-  const blurHandler = () => {
-    setTaskTitle('');
+    if (type === 'task') {
+      addNewTask(title, listId);
+    } else {
+      addNewList(title, listId); 
+    }
+    setTitle('');
     setShowInput(false);
   }
 
@@ -42,17 +41,17 @@ const TaskInputCard = ({ setShowInput, listId }) => {
         <Paper className={classes.taskInputCard}>
           <InputBase 
             multiline 
-            onBlur = {blurHandler}
+            onBlur = {() => setShowInput(false)}
             fullWidth 
-            placeholder="Enter a title for this card..."
-            value={taskTitle}
+            placeholder={type === 'list' ? "Enter a new task..." : "Enter task title..."}
+            value={title}
             onChange={titleChangeHandler}
           />
         </Paper>
       </div>
       <div>
         <Button className={classes.confirmButton} onClick={addNewTaskHandler}>
-          Add Task
+          {type === 'list' ? "Add list" : "Add task"}
         </Button>
         <IconButton onClick={() => setShowInput(false)}>
           <ClearIcon />

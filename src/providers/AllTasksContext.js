@@ -47,7 +47,7 @@ const AllTasksProvider = (props) => {
   }
 
   return (
-    <AllTasksContext.Provider value={{tasks, data, addNewTask}}>
+    <AllTasksContext.Provider value={{tasks, data, addNewTask, addNewList}}>
       {props.children}
     </AllTasksContext.Provider>
   ) 

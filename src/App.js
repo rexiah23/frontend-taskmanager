@@ -1,18 +1,29 @@
 import { useContext } from 'react';
 import TaskList from './components/Tasks/TaskList/TaskList';
 import { AllTasksContext } from './providers/AllTasksContext';
+import {makeStyles} from "@material-ui/core/styles";
+import TaskInputContainer from './components/Tasks/TaskInput/TaskInputContainer';
+
+const useStyle = makeStyles(theme => ({
+  root: {
+    display: 'flex', 
+    minHeight: '100vh',
+    background: 'green'
+  }
+}))
 
 function App() {
   const { data } = useContext(AllTasksContext);
-
+  const classes = useStyle(); 
   const allLists = data.listIds.map(listId => {
     const list = data.lists[listId]; 
     return <TaskList key={listId} list={list}/>
   });
 
   return (
-    <div className="App">
+    <div className={classes.root}>
       {allLists}
+      <TaskInputContainer type="list"/>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import TaskInputCard from './TaskInputCard';
 
 const useStyle = makeStyles((theme) => ({
   root: {
-    marginTop: theme.spacing(3)
+    width: "300px"
   }, 
   addTask: {
     padding: theme.spacing(1,1,1,2),
@@ -17,14 +17,14 @@ const useStyle = makeStyles((theme) => ({
   }
 }))
 
-const TaskInputContainer = ({ listId }) => {
+const TaskInputContainer = ({ listId, type }) => {
   const [showInput, setShowInput] = useState(false);
   const classes = useStyle(); 
 
   return (
     <div className={classes.root}>
       <Collapse in={showInput}>
-        <TaskInputCard setShowInput={setShowInput} listId={listId}/>
+        <TaskInputCard setShowInput={setShowInput} listId={listId} type={type}/>
       </Collapse>
       <Collapse in={!showInput}>
         <Paper 
@@ -33,7 +33,7 @@ const TaskInputContainer = ({ listId }) => {
           onClick={() => setShowInput(true)}
           >
           <Typography>
-            + Add a new card
+            {type === 'list' ? '+ Add a List' : 'Add a Task'}
           </Typography>
         </Paper>
       </Collapse>

@@ -9,7 +9,8 @@ const useStyle = makeStyles((theme) => ({
   root: {
     width:"300px",
     backgroundColor:"#EBECF0",
-    marginLeft:theme.spacing(1)
+    marginLeft:theme.spacing(1),
+    marginTop: theme.spacing(1)
   }
 }))
 
@@ -23,7 +24,7 @@ const TaskList = ({ list }) => {
       <CssBaseline />
       <TaskListTitle title={list.title} />
       {taskCards}
-      <TaskInputContainer listId={list.id}/>
+      <TaskInputContainer listId={list.id} type={"task"}/>
     </Paper>
   </div>);
 }
