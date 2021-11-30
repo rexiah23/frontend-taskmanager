@@ -10,8 +10,11 @@ const useStyle = makeStyles((theme) => ({
   root: {
     width:"300px",
     backgroundColor:"#EBECF0",
-    marginLeft:theme.spacing(1),
+    marginLeft: theme.spacing(1),
     marginTop: theme.spacing(1)
+  }, 
+  tasksContainer: {
+    marginTop: theme.spacing(5)
   }
 }));
 
@@ -26,7 +29,11 @@ const TaskList = ({ list }) => {
       <TaskListTitle title={list.title} listId={list.id}/>
         <Droppable droppableId={list.id}>
           {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
+            <div 
+              ref={provided.innerRef} 
+              {...provided.droppableProps}
+              className={classes.tasksContainer}
+              >
               {taskCards}
               {provided.placeholder}
             </div>
