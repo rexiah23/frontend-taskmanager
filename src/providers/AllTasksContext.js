@@ -25,8 +25,13 @@ const AllTasksProvider = (props) => {
         title: 'ToDo',
         tasks,
       },
+      'list-2': {
+        id: 'list-2',
+        title: 'Doing',
+        tasks: [],
+      },
     },
-    listIds: ['list-1'],
+    listIds: ['list-1', 'list-2'],
   });
 
   const addNewTask = (content, listId) => {
@@ -70,17 +75,15 @@ const AllTasksProvider = (props) => {
 
     if (!destination) return; 
 
-    if (source.droppableId === destination.droppableId) {
-      setData(prev => {
-        const dataCopy = {...prev};
-        const sourceList = dataCopy.lists[source.droppableId];
-        const destinationList = dataCopy.lists[destination.droppableId];
-        const draggingTask = sourceList.tasks.filter(task => task.id === draggableId)[0];       
-        sourceList.tasks.splice(source.index, 1);
-        destinationList.tasks.splice(destination.index, 0, draggingTask);
-        return dataCopy; 
-      });
-    };
+    setData(prev => {
+      const dataCopy = {...prev};
+      const sourceList = dataCopy.lists[source.droppableId];
+      const destinationList = dataCopy.lists[destination.droppableId];
+      const draggingTask = sourceList.tasks.filter(task => task.id === draggableId)[0];       
+      sourceList.tasks.splice(source.index, 1);
+      destinationList.tasks.splice(destination.index, 0, draggingTask);
+      return dataCopy; 
+    });
   };
 
   return (
