@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TaskListTitle from './TaskListTitle';
 import TaskCard from '../TaskCard';
 import TaskInputContainer from '../TaskInput/TaskInputContainer';
+import { Droppable } from 'react-beautiful-dnd';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -23,7 +24,14 @@ const TaskList = ({ list }) => {
     <Paper className={classes.root}>
       <CssBaseline />
       <TaskListTitle title={list.title} listId={list.id}/>
-      {taskCards}
+        <Droppable droppableId={list.id}>
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              {taskCards}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       <TaskInputContainer listId={list.id} type={"task"}/>
     </Paper>
   </div>
