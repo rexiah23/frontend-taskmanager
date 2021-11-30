@@ -4,14 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AllTasksProvider } from './providers/AllTasksContext';
-import { DragDropContext } from 'react-beautiful-dnd';
 
 ReactDOM.render(
   <React.StrictMode>
     <AllTasksProvider>
-      <DragDropContext>
         <App />
-      </DragDropContext>
     </AllTasksProvider>
   </React.StrictMode>,
   document.getElementById('root')

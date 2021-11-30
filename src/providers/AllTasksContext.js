@@ -65,8 +65,26 @@ const AllTasksProvider = (props) => {
     });
   };
 
+  const updateOnDragEnd = (result) => {
+    const { destination, source, draggableId } = result; 
+
+    if (!destination) return; 
+
+    if (source.droppableId === destination.droppableId) {
+      setData(prev => {
+        const dataCopy = {...prev};
+        const sourceList = dataCopy.lists[source.droppableId];
+        const destinationList = dataCopy.lists[destination.droppableId];
+        const draggingTask = sourceList.tasks.filter(task => task.id === draggableId)[0];       
+        sourceList.tasks.splice(source.index, 1);
+        destinationList.tasks.splice(destination.index, 0, draggingTask);
+        return dataCopy; 
+      });
+    };
+  };
+
   return (
-    <AllTasksContext.Provider value={{tasks, data, addNewTask, addNewList, updateListTitle}}>
+    <AllTasksContext.Provider value={{tasks, data, addNewTask, addNewList, updateListTitle, updateOnDragEnd}}>
       {props.children}
     </AllTasksContext.Provider>
   ) 
