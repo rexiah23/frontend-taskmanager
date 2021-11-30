@@ -3,7 +3,6 @@ import TaskList from './components/Tasks/TaskList/TaskList';
 import { AllTasksContext } from './providers/AllTasksContext';
 import {makeStyles} from "@material-ui/core/styles";
 import TaskInputContainer from './components/Tasks/TaskInput/TaskInputContainer';
-import { DragDropContext } from 'react-beautiful-dnd';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -24,12 +23,10 @@ function App() {
   });
 
   return (
-    <DragDropContext>
       <div className={classes.root}>
         {allLists}
         <TaskInputContainer type="list"/>
       </div>
-    </DragDropContext>
   );
 }
 

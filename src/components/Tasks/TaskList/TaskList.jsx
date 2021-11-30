@@ -20,7 +20,7 @@ const useStyle = makeStyles((theme) => ({
 
 const TaskList = ({ list }) => {
   const classes = useStyle();
-  const taskCards = list.tasks.map (task => <TaskCard key={task.id} task={task} />); 
+  const taskCards = list.tasks.map ((task, index) => <TaskCard key={task.id} task={task} index={index}/>); 
 
   return (
   <div>
