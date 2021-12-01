@@ -75,8 +75,17 @@ const AllTasksProvider = (props) => {
 
     if (!destination) return; 
 
-    if (type === 'list') return; 
-    
+    if (type === 'list') {
+      setData(prev => {
+        const dataCopy = {...prev}; 
+        const newListIdOrder = dataCopy.listIds; 
+        newListIdOrder.splice(source.index, 1);
+        newListIdOrder.splice(destination.index, 0, draggableId);
+        return dataCopy;
+      })
+      return; 
+    }
+
     setData(prev => {
       const dataCopy = {...prev};
       const sourceList = dataCopy.lists[source.droppableId];
