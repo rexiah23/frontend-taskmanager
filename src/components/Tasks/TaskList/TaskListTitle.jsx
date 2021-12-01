@@ -16,7 +16,7 @@ const TaskListTitle = ({ title, listId }) => {
     },
     editableTitle: {
       marginLeft:theme.spacing(1),
-    
+      fontWeight: 'bold'
     }, 
     editableTitleInput : {
       margin: theme.spacing(1), 
@@ -53,7 +53,7 @@ const TaskListTitle = ({ title, listId }) => {
         </div>}
     {!editing && <div className={classes.editableTitleContainer}>
       <Typography 
-        onClick={() => setEditing(prev => !prev)}
+        onClick={() => setEditing(true)}
         className={classes.editableTitle}
         >
         {title}
