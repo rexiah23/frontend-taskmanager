@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer } from '@material-ui/core';
 
@@ -8,12 +7,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SideDrawer = props => {
+const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
   const classes = useStyles();
 
   return (
     <div>
-      <Drawer open={true} anchor='right'>
+      <Drawer open={openSideDrawer} anchor='right' onClose={() => setOpenSideDrawer(false)}>
         <div className={classes.drawer}>
           <h1>Helloo world</h1>
         </div>

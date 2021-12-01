@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TopBar = props => {
+const TopBar = ({ setOpenSideDrawer }) => {
   const classes = useStyles();
 
   return (
@@ -23,7 +23,11 @@ const TopBar = props => {
       <AppBar position="static" className={classes.AppBar} elevation={0}>
         <Toolbar>
           <h1 className={classes.title}>ToDo</h1>
-          <Button className={classes.button}>Change Background</Button>
+          <Button 
+            className={classes.button} 
+            onClick={() => setOpenSideDrawer(true)}
+            >
+            Change Background</Button>
         </Toolbar>
       </AppBar>
     </div>
