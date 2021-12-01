@@ -14,7 +14,7 @@ const useStyle = makeStyles((theme) => ({
     marginTop: theme.spacing(1)
   }, 
   tasksContainer: {
-    marginTop: theme.spacing(5)
+    marginTop: theme.spacing(3)
   }
 }));
 
