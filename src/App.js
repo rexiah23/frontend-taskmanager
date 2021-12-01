@@ -3,7 +3,7 @@ import TaskList from './components/Tasks/TaskList/TaskList';
 import { AllTasksContext } from './providers/AllTasksContext';
 import {makeStyles} from "@material-ui/core/styles";
 import TaskInputContainer from './components/Tasks/TaskInput/TaskInputContainer';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -18,17 +18,24 @@ const useStyle = makeStyles(theme => ({
 function App() {
   const { data, updateOnDragEnd } = useContext(AllTasksContext);
   const classes = useStyle(); 
-  const allLists = data.listIds.map(listId => {
+  const allLists = data.listIds.map((listId, index) => {
     const list = data.lists[listId]; 
-    return <TaskList key={listId} list={list}/>
+    return <TaskList key={listId} list={list} index={index}/>
   });
 
   return (
     <DragDropContext onDragEnd={updateOnDragEnd}>
-      <div className={classes.root}>
-        {allLists}
-        <TaskInputContainer type="list"/>
-      </div>
+      <Droppable droppableId="app" type="list" direction="horizontal">
+        {(provided) => (
+          <div 
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            className={classes.root}>
+            {allLists}
+            <TaskInputContainer type="list" {...provided.placeholder}/>
+          </div>
+        )}
+      </Droppable>
     </DragDropContext>
   );
 }

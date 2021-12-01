@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TaskListTitle from './TaskListTitle';
 import TaskCard from '../TaskCard';
 import TaskInputContainer from '../TaskInput/TaskInputContainer';
-import { Droppable } from 'react-beautiful-dnd';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -18,30 +18,34 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-const TaskList = ({ list }) => {
+const TaskList = ({ list, index }) => {
   const classes = useStyle();
   const taskCards = list.tasks.map ((task, index) => <TaskCard key={task.id} task={task} index={index}/>); 
 
   return (
-  <div>
-    <Paper className={classes.root}>
-      <CssBaseline />
-      <TaskListTitle title={list.title} listId={list.id}/>
-        <Droppable droppableId={list.id}>
-          {(provided) => (
-            <div 
-              ref={provided.innerRef} 
-              {...provided.droppableProps}
-              className={classes.tasksContainer}
-              >
-              {taskCards}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      <TaskInputContainer listId={list.id} type={"task"}/>
-    </Paper>
-  </div>
+  <Draggable draggableId={list.id} index={index}>
+    {(provided) => (
+      <div {...provided.draggableProps} ref={provided.innerRef}>
+        <Paper className={classes.root} {...provided.dragHandleProps}>
+          <CssBaseline />
+          <TaskListTitle title={list.title} listId={list.id}/>
+            <Droppable droppableId={list.id}>
+              {(provided) => (
+                <div 
+                  ref={provided.innerRef} 
+                  {...provided.droppableProps}
+                  className={classes.tasksContainer}
+                  >
+                  {taskCards}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          <TaskInputContainer listId={list.id} type={"task"}/>
+        </Paper>
+      </div>
+    )}
+  </Draggable>
   );
 };
 

@@ -71,10 +71,12 @@ const AllTasksProvider = (props) => {
   };
 
   const updateOnDragEnd = (result) => {
-    const { destination, source, draggableId } = result; 
+    const { destination, source, draggableId, type } = result; 
 
     if (!destination) return; 
 
+    if (type === 'list') return; 
+    
     setData(prev => {
       const dataCopy = {...prev};
       const sourceList = dataCopy.lists[source.droppableId];
