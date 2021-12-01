@@ -2,6 +2,7 @@ import React from 'react';
 import Main from './components/Main';
 import TopBar from './components/Bars/TopBar';
 import { makeStyles } from '@material-ui/core/styles';
+import SideDrawer from './components/Drawers/SideDrawer';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,6 +15,7 @@ export default function App() {
   return (
     <div className={classes.root}>
       <TopBar/>
+      <SideDrawer/>
       <Main/>
     </div>
   );
