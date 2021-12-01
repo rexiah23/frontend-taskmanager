@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { InputBase, Typography } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { AllTasksContext } from '../../../providers/AllTasksContext';
+import { AllTasksContext } from '../../providers/AllTasksContext';
 
 const TaskListTitle = ({ title, listId }) => {
   const [editing, setEditing] = useState(false);

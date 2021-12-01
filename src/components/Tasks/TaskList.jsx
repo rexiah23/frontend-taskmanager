@@ -2,8 +2,8 @@ import React from 'react';
 import { Paper, CssBaseline } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import TaskListTitle from './TaskListTitle';
-import TaskCard from '../TaskCard';
-import TaskInputContainer from '../TaskInput/TaskInputContainer';
+import TaskCard from './TaskCard';
+import TaskInputContainer from './TaskInputContainer';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 const useStyle = makeStyles((theme) => ({

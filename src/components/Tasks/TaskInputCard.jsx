@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Paper, InputBase, Button, IconButton } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import ClearIcon from "@material-ui/icons/Clear";
-import { AllTasksContext } from '../../../providers/AllTasksContext';
+import { AllTasksContext } from '../../providers/AllTasksContext';
 
 const useStyle = makeStyles((theme) => ({
   taskInputCard: {

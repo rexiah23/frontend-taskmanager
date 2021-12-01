@@ -1,15 +1,14 @@
 import { useContext } from 'react';
-import TaskList from './Tasks/TaskList/TaskList';
+import TaskList from './Tasks/TaskList';
 import { AllTasksContext } from '../providers/AllTasksContext';
 import {makeStyles} from "@material-ui/core/styles";
-import TaskInputContainer from './Tasks/TaskInput/TaskInputContainer';
+import TaskInputContainer from './Tasks/TaskInputContainer';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const useStyle = makeStyles(theme => ({
   root: {
     display: 'flex', 
     minHeight: '100vh',
-    background: 'green',
     width: '100%', 
     overflowY: 'auto'
   }
