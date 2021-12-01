@@ -32,7 +32,8 @@ function App() {
             {...provided.droppableProps}
             className={classes.root}>
             {allLists}
-            <TaskInputContainer type="list" {...provided.placeholder}/>
+            <TaskInputContainer type="list" />
+            {provided.placeholder}
           </div>
         )}
       </Droppable>

@@ -6,11 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import { AllTasksProvider } from './providers/AllTasksContext';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <AllTasksProvider>
-        <App />
-    </AllTasksProvider>
-  </React.StrictMode>,
+  <AllTasksProvider>
+      <App />
+  </AllTasksProvider>,
   document.getElementById('root')
 );
 

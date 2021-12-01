@@ -41,7 +41,7 @@ const TaskList = ({ list, index }) => {
                 </div>
               )}
             </Droppable>
-          <TaskInputContainer listId={list.id} type={"task"}/>
+          <TaskInputContainer listId={list.id} type="task"/>
         </Paper>
       </div>
     )}
