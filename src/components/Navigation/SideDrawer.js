@@ -47,7 +47,10 @@ const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover'
               }}
-              onClick={() => setShowImageOptions(prev => !prev)}
+              onClick={() => {
+              setShowImageOptions(true);
+              setShowColorOptions(false);
+            }}
               ></div>
             <div 
               className={classes.box}
@@ -56,37 +59,40 @@ const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover'
               }}
-              onClick={() => setShowColorOptions(prev => !prev)}
+              onClick={() => {
+                setShowColorOptions(true);
+                setShowImageOptions(false);
+              }}
               ></div>
           </div>
-          <Grow in={showColorOptions}>
-            <div className={classes.optionsContainer}>
-              {colors.map((color, index) => (
-                <div
-                  key={index} 
-                  className={classes.box}
-                  style={{
-                    backgroundColor: color
-                  }}
-                ></div>
-              ))}
-            </div>
-
-          </Grow>
-          <Grow in={showImageOptions}>
-            <div className={classes.optionsContainer}>
-              {colors.map((color, index) => (
-                <div
-                  key={index} 
-                  className={classes.box}
-                  style={{
-                    backgroundColor: color
-                  }}
-                ></div>
-              ))}
-            </div>
-
-          </Grow>
+          {showImageOptions ? 
+            <Grow in={showImageOptions}>
+              <div className={classes.optionsContainer}>
+                {colors.map((color, index) => (
+                  <div
+                    key={index} 
+                    className={classes.box}
+                    style={{
+                      backgroundColor: color
+                    }}
+                  ></div>
+                ))}
+              </div>
+            </Grow>
+            :<Grow in={showColorOptions}>
+                <div className={classes.optionsContainer}>
+                  {colors.map((color, index) => (
+                    <div
+                      key={index} 
+                      className={classes.box}
+                      style={{
+                        backgroundColor: color
+                      }}
+                    ></div>
+                  ))}
+                </div>
+            </Grow>
+        }
         </div>
       </Drawer>
     </div>
