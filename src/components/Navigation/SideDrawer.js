@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Drawer } from '@material-ui/core';
+import { Drawer, Grow } from '@material-ui/core';
 import colors from '../../colors/colors';
 
 const useStyles = makeStyles(theme => ({
@@ -8,20 +8,21 @@ const useStyles = makeStyles(theme => ({
     width: '400px'
   }, 
   menu: {
-    margin: theme.spacing(2),
+    marginTop: theme.spacing(2),
     display: 'flex',
     justifyConent: 'space-around',
   },
   box: {
-    margin: theme.spacing(1),
     width: '45%', 
     height: '90px',
     backgroundColor: 'blue',
     borderRadius: "9px",
+    marginBottom: theme.spacing(2)
   },
   optionsContainer: {
     display: 'flex',
-    flexWrap: "wrap"
+    flexWrap: 'wrap',
+    justifyContent: 'space-around'
   }
 }));
 
@@ -53,19 +54,23 @@ const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover'
               }}
+              onClick={() => setOpenColorOptions(prev => !prev)}
               ></div>
           </div>
-          <div className={classes.optionsContainer}>
-            {colors.map((color, index) => (
-              <div
-                key={index} 
-                className={classes.box}
-                style={{
-                  backgroundColor: color
-                }}
-              ></div>
-            ))}
-          </div>
+          <Grow in={openColorOptions}>
+            <div className={classes.optionsContainer}>
+              {colors.map((color, index) => (
+                <div
+                  key={index} 
+                  className={classes.box}
+                  style={{
+                    backgroundColor: color
+                  }}
+                ></div>
+              ))}
+            </div>
+
+          </Grow>
         </div>
       </Drawer>
     </div>
