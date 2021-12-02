@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, Grow } from '@material-ui/core';
 import colors from '../../colors/colors';
+import { FetchImagesContext } from '../../providers/FetchImagesContext';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -30,7 +31,8 @@ const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
   const classes = useStyles();
   const [showColorOptions, setShowColorOptions] = useState(false);
   const [showImageOptions, setShowImageOptions] = useState(false);
-
+  const { imagesUrl } = useContext(FetchImagesContext);
+  
   return (
     <div>
       <Drawer 
