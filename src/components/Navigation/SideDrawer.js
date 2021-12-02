@@ -28,7 +28,8 @@ const useStyles = makeStyles(theme => ({
 
 const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
   const classes = useStyles();
-  const [openColorOptions, setOpenColorOptions] = useState(false);
+  const [showColorOptions, setShowColorOptions] = useState(false);
+  const [showImageOptions, setShowImageOptions] = useState(false);
 
   return (
     <div>
@@ -46,6 +47,7 @@ const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover'
               }}
+              onClick={() => setShowImageOptions(prev => !prev)}
               ></div>
             <div 
               className={classes.box}
@@ -54,10 +56,24 @@ const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover'
               }}
-              onClick={() => setOpenColorOptions(prev => !prev)}
+              onClick={() => setShowColorOptions(prev => !prev)}
               ></div>
           </div>
-          <Grow in={openColorOptions}>
+          <Grow in={showColorOptions}>
+            <div className={classes.optionsContainer}>
+              {colors.map((color, index) => (
+                <div
+                  key={index} 
+                  className={classes.box}
+                  style={{
+                    backgroundColor: color
+                  }}
+                ></div>
+              ))}
+            </div>
+
+          </Grow>
+          <Grow in={showImageOptions}>
             <div className={classes.optionsContainer}>
               {colors.map((color, index) => (
                 <div
