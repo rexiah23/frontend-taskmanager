@@ -8,15 +8,15 @@ const FetchImagesContext = React.createContext();
 const FetchImagesProvider = props => {
   const [imageUrls, setImageUrls] = useState([]);
 
-  const page = Math.floor(Math.random() * 50 + 1); 
-  console.log("CONFIG IF THIS: ", config)
-  const imageApiUrl = 
-  `${config.url}search/photos?page=${page}&query=landscapes&client_id=${config.clientKey}`
-
   useEffect(() => {
+    const page = Math.floor(Math.random() * 50 + 1); 
+    const imageApiUrl = 
+    `${config.url}search/photos?page=${page}&query=landscapes&client_id=${config.clientKey}`
     axios.get(imageApiUrl)
-    .then((res) => console.log(res.data.results))
-  }, [imageApiUrl]); 
+    .then(res => {
+      setImageUrls(res.data.results); 
+    });
+  }, []); 
 
   return (
     <FetchImagesContext.Provider value={{imageUrls, setImageUrls}}>

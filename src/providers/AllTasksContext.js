@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const AllTasksContext = React.createContext(); 
 
 const AllTasksProvider = (props) => {
-  const [tasks, setTasks] = useState([
+  const [tasks] = useState([
     {
       id: 'task-1',
       content: 'Learning how to cook',

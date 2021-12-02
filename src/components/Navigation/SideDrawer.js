@@ -31,8 +31,8 @@ const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
   const classes = useStyles();
   const [showColorOptions, setShowColorOptions] = useState(false);
   const [showImageOptions, setShowImageOptions] = useState(false);
-  const { imagesUrl } = useContext(FetchImagesContext);
-  
+  const { imageUrls } = useContext(FetchImagesContext);
+
   return (
     <div>
       <Drawer 
@@ -70,12 +70,14 @@ const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
           {showImageOptions ? 
             <Grow in={showImageOptions}>
               <div className={classes.optionsContainer}>
-                {colors.map((color, index) => (
+                {imageUrls.map((image, index) => (
                   <div
                     key={index} 
                     className={classes.box}
                     style={{
-                      backgroundColor: color
+                      backgroundImage: `url(${image.urls.full})`,
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: 'cover'
                     }}
                   ></div>
                 ))}
