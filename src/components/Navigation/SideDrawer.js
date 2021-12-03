@@ -31,7 +31,7 @@ const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
   const classes = useStyles();
   const [showColorOptions, setShowColorOptions] = useState(false);
   const [showImageOptions, setShowImageOptions] = useState(false);
-  const { imageUrls } = useContext(ColorsAndImagesContext);
+  const { imageUrls, setSelectedBackground } = useContext(ColorsAndImagesContext);
 
   return (
     <div>
@@ -79,6 +79,7 @@ const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: 'cover'
                     }}
+                    onClick={() => setSelectedBackground(image.urls.full)}
                   ></div>
                 ))}
               </div>
@@ -92,6 +93,7 @@ const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
                       style={{
                         backgroundColor: color
                       }}
+                      onClick={() => setSelectedBackground(color)}
                     ></div>
                   ))}
                 </div>
