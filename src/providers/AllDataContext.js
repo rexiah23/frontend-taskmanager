@@ -6,7 +6,8 @@ const AllDataContext = React.createContext();
 const AllDataProvider = (props) => {
 
   const [data, setData] = useState('loading...');
-  
+  const [dataChanged, setDataChanged] = useState(true); 
+
   useEffect(() => {
     const url = 'http://localhost:8080/api/data';
     axios.get(url)
@@ -16,36 +17,7 @@ const AllDataProvider = (props) => {
     .catch(err => {
       console.log(err.message)
     });
-  }, [])
-
-  // const [data, setData] = useState({
-  //   lists: {
-  //     'list-1': {
-  //       id: 'list-1',
-  //       title: 'ToDo',
-  //       tasks: [
-  //         {
-  //           id: 'task-1',
-  //           content: 'Learning how to cook',
-  //         },
-  //         {
-  //           id: 'task-2',
-  //           content: 'Making sandwich',
-  //         },
-  //         {
-  //           id: 'task-3',
-  //           content: 'Taking the trash out',
-  //         },
-  //       ]
-  //     },
-  //     'list-2': {
-  //       id: 'list-2',
-  //       title: 'Doing',
-  //       tasks: [],
-  //     },
-  //   },
-  //   listIds: ['list-1', 'list-2'],
-  // });
+  }, []);
 
   const addNewTask = (content, listId) => {
     setData(prev => {
@@ -58,6 +30,7 @@ const AllDataProvider = (props) => {
       dataCopy.lists[listId].tasks.push(newTask); 
       return dataCopy;
     });
+    setDataChanged(true);
   };
 
   const addNewList = title => {
@@ -73,6 +46,7 @@ const AllDataProvider = (props) => {
       dataCopy.listIds.push(newListId); 
       return dataCopy; 
     });
+    setDataChanged(true);
   };
 
   const updateListTitle = (title, listId) => {
@@ -81,6 +55,7 @@ const AllDataProvider = (props) => {
       dataCopy.lists[listId].title = title; 
       return dataCopy; 
     });
+    setDataChanged(true);
   };
 
   const updateOnDragEnd = (result) => {
@@ -108,10 +83,11 @@ const AllDataProvider = (props) => {
       destinationList.tasks.splice(destination.index, 0, draggingTask);
       return dataCopy; 
     });
+    setDataChanged(true);
   };
 
   return (
-    <AllDataContext.Provider value={{ data, addNewTask, addNewList, updateListTitle, updateOnDragEnd}}>
+    <AllDataContext.Provider value={{ data, addNewTask, addNewList, updateListTitle, updateOnDragEnd, dataChanged, setDataChanged}}>
       {props.children}
     </AllDataContext.Provider>
   ) 
