@@ -12,7 +12,6 @@ export default function App() {
       backgroundImage: `url(${selectedBackground})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover'
-
     }}>
       <Navigation/>
       <Main/>

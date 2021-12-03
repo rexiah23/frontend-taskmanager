@@ -1,38 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const AllTasksContext = React.createContext(); 
+const AllDataContext = React.createContext(); 
 
-const AllTasksProvider = (props) => {
-  const [tasks] = useState([
-    {
-      id: 'task-1',
-      content: 'Learning how to cook',
-    },
-    {
-      id: 'task-2',
-      content: 'Making sandwich',
-    },
-    {
-      id: 'task-3',
-      content: 'Taking the trash out',
-    },
-  ]);
+const AllDataProvider = (props) => {
 
-  const [data, setData] = useState({
-    lists: {
-      'list-1': {
-        id: 'list-1',
-        title: 'ToDo',
-        tasks,
-      },
-      'list-2': {
-        id: 'list-2',
-        title: 'Doing',
-        tasks: [],
-      },
-    },
-    listIds: ['list-1', 'list-2'],
-  });
+  const [data, setData] = useState('loading...');
+  
+  useEffect(() => {
+    const url = 'http://localhost:8080/api/data';
+    axios.get(url)
+    .then(res => {
+      setData(res.data.response);
+    })
+    .catch(err => {
+      console.log(err.message)
+    });
+  }, [])
+
+  // const [data, setData] = useState({
+  //   lists: {
+  //     'list-1': {
+  //       id: 'list-1',
+  //       title: 'ToDo',
+  //       tasks: [
+  //         {
+  //           id: 'task-1',
+  //           content: 'Learning how to cook',
+  //         },
+  //         {
+  //           id: 'task-2',
+  //           content: 'Making sandwich',
+  //         },
+  //         {
+  //           id: 'task-3',
+  //           content: 'Taking the trash out',
+  //         },
+  //       ]
+  //     },
+  //     'list-2': {
+  //       id: 'list-2',
+  //       title: 'Doing',
+  //       tasks: [],
+  //     },
+  //   },
+  //   listIds: ['list-1', 'list-2'],
+  // });
 
   const addNewTask = (content, listId) => {
     setData(prev => {
@@ -98,10 +111,10 @@ const AllTasksProvider = (props) => {
   };
 
   return (
-    <AllTasksContext.Provider value={{tasks, data, addNewTask, addNewList, updateListTitle, updateOnDragEnd}}>
+    <AllDataContext.Provider value={{ data, addNewTask, addNewList, updateListTitle, updateOnDragEnd}}>
       {props.children}
-    </AllTasksContext.Provider>
+    </AllDataContext.Provider>
   ) 
 }
 
-export {AllTasksContext, AllTasksProvider}
+export {AllDataContext, AllDataProvider}

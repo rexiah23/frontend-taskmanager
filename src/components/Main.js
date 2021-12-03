@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import TaskList from './Tasks/TaskList';
-import { AllTasksContext } from '../providers/AllTasksContext';
+import { AllDataContext } from '../providers/AllDataContext';
 import {makeStyles} from "@material-ui/core/styles";
 import TaskInputContainer from './Tasks/TaskInputContainer';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -15,8 +15,13 @@ const useStyle = makeStyles(theme => ({
 }))
 
 const Main = () => {
-  const { data, updateOnDragEnd } = useContext(AllTasksContext);
   const classes = useStyle(); 
+  const { data, updateOnDragEnd } = useContext(AllDataContext);
+
+  if (data === 'loading...') {
+    return <h1>loading...</h1>
+  }
+
   const allLists = data.listIds.map((listId, index) => {
     const list = data.lists[listId]; 
     return <TaskList key={listId} list={list} index={index}/>

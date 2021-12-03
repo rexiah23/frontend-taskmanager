@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { AllTasksProvider } from './providers/AllTasksContext';
+import { AllDataProvider } from './providers/AllDataContext';
 import { ColorsAndImagesProvider } from './providers/ColorsAndImagesContext';
 ReactDOM.render(
-  <AllTasksProvider>
+  <AllDataProvider>
     <ColorsAndImagesProvider>
       <App />
     </ColorsAndImagesProvider>
-  </AllTasksProvider>,
+  </AllDataProvider>,
   document.getElementById('root')
 );
 

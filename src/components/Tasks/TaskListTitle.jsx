@@ -2,12 +2,12 @@ import React, { useContext, useState } from 'react';
 import { InputBase, Typography } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { AllTasksContext } from '../../providers/AllTasksContext';
+import { AllDataContext } from '../../providers/AllDataContext';
 
 const TaskListTitle = ({ title, listId }) => {
   const [editing, setEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
-  const { updateListTitle } = useContext(AllTasksContext);
+  const { updateListTitle } = useContext(AllDataContext);
 
   const useStyle = makeStyles((theme) => ({
     editableTitleContainer: {

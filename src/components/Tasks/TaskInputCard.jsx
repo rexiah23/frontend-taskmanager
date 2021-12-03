@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Paper, InputBase, Button, IconButton } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import ClearIcon from "@material-ui/icons/Clear";
-import { AllTasksContext } from '../../providers/AllTasksContext';
+import { AllDataContext } from '../../providers/AllDataContext';
 
 const useStyle = makeStyles((theme) => ({
   taskInputCard: {
@@ -20,7 +20,7 @@ const useStyle = makeStyles((theme) => ({
 const TaskInputCard = ({ setShowInput, listId, type }) => {
   const classes = useStyle(); 
   const [title, setTitle] = useState('')
-  const { addNewTask, addNewList } = useContext(AllTasksContext); 
+  const { addNewTask, addNewList } = useContext(AllDataContext); 
 
 
   const titleChangeHandler = event => {
