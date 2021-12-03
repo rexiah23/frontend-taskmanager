@@ -4,10 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AllTasksProvider } from './providers/AllTasksContext';
-
+import { ColorsAndImagesProvider } from './providers/ColorsAndImagesContext';
 ReactDOM.render(
   <AllTasksProvider>
+    <ColorsAndImagesProvider>
       <App />
+    </ColorsAndImagesProvider>
   </AllTasksProvider>,
   document.getElementById('root')
 );

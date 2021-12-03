@@ -3,10 +3,11 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import config from '../config/config'; 
 
-const FetchImagesContext = React.createContext(); 
+const ColorsAndImagesContext = React.createContext(); 
 
-const FetchImagesProvider = props => {
+const ColorsAndImagesProvider = props => {
   const [imageUrls, setImageUrls] = useState([]);
+  const [selectedBackground, setSelectedBackground] = useState('https://images.pexels.com/photos/1766838/pexels-photo-1766838.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260'); 
 
   useEffect(() => {
     const page = Math.floor(Math.random() * 50 + 1); 
@@ -19,10 +20,10 @@ const FetchImagesProvider = props => {
   }, []); 
 
   return (
-    <FetchImagesContext.Provider value={{imageUrls, setImageUrls}}>
+    <ColorsAndImagesContext.Provider value={{imageUrls, setImageUrls, selectedBackground, setSelectedBackground}}>
       {props.children}
-    </FetchImagesContext.Provider>
+    </ColorsAndImagesContext.Provider>
   );
 };
 
-export {FetchImagesProvider, FetchImagesContext};
+export {ColorsAndImagesProvider, ColorsAndImagesContext};

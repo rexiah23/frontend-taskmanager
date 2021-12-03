@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Main from './components/Main';
-import { makeStyles } from '@material-ui/core/styles';
 import Navigation from './components/Navigation/Navigation';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    backgroundColor:'green'
-  },
-}));
+import { ColorsAndImagesContext } from './providers/ColorsAndImagesContext';
 
 export default function App() {
-  const classes = useStyles();
+  const { selectedBackground } = useContext(ColorsAndImagesContext);
+
   return (
-    <div className={classes.root}>
+    <div style={{
+      backgroundColor: `${selectedBackground}`,
+      backgroundImage: `url(${selectedBackground})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover'
+
+    }}>
       <Navigation/>
       <Main/>
     </div>

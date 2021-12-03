@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { FetchImagesProvider } from '../../providers/FetchImagesContext';
 import SideDrawer from './SideDrawer';
 import TopBar from './TopBar';
 
@@ -9,10 +8,8 @@ const Navigation = props => {
 
   return (
     <div>
-      <FetchImagesProvider>
         <TopBar setOpenSideDrawer={setOpenSideDrawer}/>
         <SideDrawer setOpenSideDrawer={setOpenSideDrawer} openSideDrawer={openSideDrawer}/>
-      </FetchImagesProvider>
     </div>
   );
 };
