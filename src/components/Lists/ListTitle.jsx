@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { AllDataContext } from '../../providers/AllDataContext';
 
-const TaskListTitle = ({ title, list, deleteHandler }) => {
+const ListTitle = ({ title, list, deleteHandler }) => {
   const [editing, setEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const { updateListTitle } = useContext(AllDataContext);
@@ -66,4 +66,4 @@ const TaskListTitle = ({ title, list, deleteHandler }) => {
   );
 }
 
-export default TaskListTitle;
+export default ListTitle;

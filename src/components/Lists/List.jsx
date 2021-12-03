@@ -1,9 +1,9 @@
 import React from 'react';
 import { Paper, CssBaseline } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
-import TaskListTitle from './TaskListTitle';
-import TaskCard from './TaskCard';
-import TaskInputContainer from './TaskInputContainer';
+import ListTitle from './ListTitle';
+import TaskCard from '../Tasks/TaskCard';
+import InputContainer from '../Input/InputContainer';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 const useStyle = makeStyles((theme) => ({
@@ -18,7 +18,7 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-const TaskList = ({ list, index, deleteHandler }) => {
+const List = ({ list, index, deleteHandler }) => {
   const classes = useStyle();
   const taskCards = list.tasks.map ((task, index) => (
     <TaskCard 
@@ -35,7 +35,7 @@ const TaskList = ({ list, index, deleteHandler }) => {
       <div {...provided.draggableProps} ref={provided.innerRef}>
         <Paper className={classes.root} {...provided.dragHandleProps}>
           <CssBaseline />
-          <TaskListTitle title={list.title} list={list} deleteHandler={deleteHandler}/>
+          <ListTitle title={list.title} list={list} deleteHandler={deleteHandler}/>
             <Droppable droppableId={list.id}>
               {(provided) => (
                 <div 
@@ -48,7 +48,7 @@ const TaskList = ({ list, index, deleteHandler }) => {
                 </div>
               )}
             </Droppable>
-          <TaskInputContainer listId={list.id} type="task"/>
+          <InputContainer listId={list.id} type="task"/>
         </Paper>
       </div>
     )}
@@ -56,4 +56,4 @@ const TaskList = ({ list, index, deleteHandler }) => {
   );
 };
 
-export default TaskList;
+export default List;

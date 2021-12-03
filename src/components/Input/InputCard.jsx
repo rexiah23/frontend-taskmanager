@@ -5,7 +5,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import { AllDataContext } from '../../providers/AllDataContext';
 
 const useStyle = makeStyles((theme) => ({
-  taskInputCard: {
+  InputCard: {
     width: '280px',
     paddingBottom: theme.spacing(3),
     margin: theme.spacing(1)
@@ -17,22 +17,26 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-const TaskInputCard = ({ setShowInput, listId, type }) => {
+const InputCard = ({ setShowInput, listId, type }) => {
   const classes = useStyle(); 
   const [title, setTitle] = useState('')
-  const { addNewTask, addNewList } = useContext(AllDataContext); 
+  const { newAddHandler } = useContext(AllDataContext); 
 
 
   const titleChangeHandler = event => {
     setTitle(event.target.value); 
   }
 
-  const addNewTaskHandler = () => {
+  const addNewItemHandler = () => {
+    let body = {};
     if (type === 'task') {
-      addNewTask(title, listId);
+      body = {title, listId, type:'task'};
     } else {
-      addNewList(title); 
-    }
+      body = {title, type:'list'};
+    };
+
+    console.log("BODY IS: ", body);
+    newAddHandler(body); 
     setTitle('');
     setShowInput(false);
   }
@@ -40,20 +44,20 @@ const TaskInputCard = ({ setShowInput, listId, type }) => {
   return (
     <div>
       <div>
-        <Paper className={classes.taskInputCard}>
+        <Paper className={classes.InputCard}>
           <InputBase 
             multiline 
             onBlur = {() => setShowInput(false)}
             fullWidth 
-            placeholder={type === 'list' ? "Enter a new list..." : "Enter a new task..."}
+            placeholder={type === 'task' ? "Enter a new task...": "Enter a new list..." }
             value={title}
             onChange={titleChangeHandler}
           />
         </Paper>
       </div>
       <div>
-        <Button className={classes.confirmButton} onClick={addNewTaskHandler}>
-          {type === 'list' ? "Add list" : "Add task"}
+        <Button className={classes.confirmButton} onClick={addNewItemHandler}>
+          {type === 'task' ? "Add task" : "Add list"}
         </Button>
         <IconButton onClick={() => setShowInput(false)}>
           <ClearIcon />
@@ -62,4 +66,4 @@ const TaskInputCard = ({ setShowInput, listId, type }) => {
     </div>
   )
 }
-export default TaskInputCard;
+export default InputCard;

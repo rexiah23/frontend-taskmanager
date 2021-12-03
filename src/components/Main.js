@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import TaskList from './Tasks/TaskList';
+import List from './Lists/List';
 import { AllDataContext } from '../providers/AllDataContext';
 import {makeStyles} from "@material-ui/core/styles";
-import TaskInputContainer from './Tasks/TaskInputContainer';
+import InputContainer from './Input/InputContainer';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import SaveButton from './SaveButton';
 
@@ -22,10 +22,10 @@ const Main = () => {
   if (data === 'loading...') {
     return <h1>loading...</h1>
   }
-
+  
   const allLists = data.listIds.map((listId, index) => {
     const list = data.lists[listId]; 
-    return <TaskList key={listId} list={list} index={index} deleteHandler={deleteHandler}/>
+    return <List key={listId} list={list} index={index} deleteHandler={deleteHandler} />
   });
 
   return (
@@ -39,7 +39,7 @@ const Main = () => {
               {...provided.droppableProps}
               className={classes.root}>
               {allLists}
-              <TaskInputContainer type="list" />
+              <InputContainer type="list"/>
               {provided.placeholder}
             </div>
           )}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Collapse, Paper, Typography } from '@material-ui/core';
 import { makeStyles, alpha } from "@material-ui/core/styles";
-import TaskInputCard from './TaskInputCard';
+import InputCard from './InputCard';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -17,14 +17,14 @@ const useStyle = makeStyles((theme) => ({
   }
 }))
 
-const TaskInputContainer = ({ listId, type }) => {
+const InputContainer = ({ listId, type }) => {
   const [showInput, setShowInput] = useState(false);
   const classes = useStyle(); 
 
   return (
     <div className={classes.root}>
       <Collapse in={showInput}>
-        <TaskInputCard setShowInput={setShowInput} listId={listId} type={type}/>
+        <InputCard setShowInput={setShowInput} listId={listId} type={type}/>
       </Collapse>
       <Collapse in={!showInput}>
         <Paper 
@@ -40,4 +40,4 @@ const TaskInputContainer = ({ listId, type }) => {
     </div>
   )
 }
-export default TaskInputContainer;
+export default InputContainer;

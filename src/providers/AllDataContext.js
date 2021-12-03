@@ -9,7 +9,7 @@ const AllDataProvider = (props) => {
   const [dataChanged, setDataChanged] = useState(false); 
 
   useEffect(() => {
-    const url = 'http://localhost:8080/api/data';
+    const url = 'http://localhost:8080/api/task/all';
     axios.get(url)
     .then(res => {
       setData(res.data.response);
@@ -19,35 +19,21 @@ const AllDataProvider = (props) => {
     });
   }, []);
 
-  const addNewTask = (content, listId) => {
-    setData(prev => {
-      const dataCopy = {...prev};
-      const newTaskId = `task-${parseInt(dataCopy.lists[listId].tasks.length) + 1}`; 
-      const newTask = { 
-        id: newTaskId, 
-        content
-      }
-      dataCopy.lists[listId].tasks.push(newTask); 
-      return dataCopy;
-    });
-    setDataChanged(true);
-  };
-
-  const addNewList = title => {
-    setData(prev => {
-      const dataCopy = {...prev};
-      const newListId = `list-${parseInt(dataCopy.listIds.length) + 1}`; 
-      const newList =  {
-          id: newListId, 
-          title,
-          tasks: []
-        };
-      dataCopy.lists[newListId] = newList; 
-      dataCopy.listIds.push(newListId); 
-      return dataCopy; 
-    });
-    setDataChanged(true);
-  };
+  const newAddHandler = (item) => {
+    const {title, type, listId} = item; 
+    const url = `http://localhost:8080/api/${type}/add`;
+    axios.post(url, {title, listId})
+    .then((response) => {
+      const newList = {...response.data.insertedListValue, tasks:[]}; 
+      setData(prev => {
+        const dataCopy = {...prev};
+        dataCopy.listIds.push(newList.id);
+        dataCopy.lists[newList.id] = newList; 
+        return dataCopy;
+      })
+    })
+    .catch(err => console.log(err.message))
+  }  
 
   const updateListTitle = (title, listId) => {
     setData(prev => {
@@ -83,6 +69,7 @@ const AllDataProvider = (props) => {
       destinationList.tasks.splice(destination.index, 0, draggingTask);
       return dataCopy; 
     });
+    
     setDataChanged(true);
   };
 
@@ -91,31 +78,31 @@ const AllDataProvider = (props) => {
   }
 
   const deleteHandler = (item, type) => {
-      const IdFromParams = item.id; 
-      const url = `http://localhost:8080/api/data/delete/${IdFromParams}`;
-      const body = { data: {type}};
-      axios.delete(url, body)
+    const IdFromParams = item.id; 
+      const url = `http://localhost:8080/api/${type}/delete/${IdFromParams}`;
+      axios.delete(url)
       .then(res => {
         setData(prev => {
           const dataCopy = {...prev};
-          //if item to delete is a task, do the following:
+          //if task deleted, do the following:
           if (type === 'task') {
             const newTasks = dataCopy.lists[item.list_id].tasks.filter(el => el.id !== IdFromParams);
             dataCopy.lists[item.list_id].tasks = newTasks; 
             return dataCopy;
           }
-          //if item to delete is a list, do the following:
+          //if list deleted, do the following:
           delete dataCopy.lists[IdFromParams]; 
           const listIndex = dataCopy.listIds.indexOf(IdFromParams); 
           dataCopy.listIds.splice(listIndex, 1); 
           return dataCopy;
         })
       })
+      .catch(err => console.log(err.message))
     }
 
 
   return (
-    <AllDataContext.Provider value={{ data, dataChanged, addNewTask, addNewList, updateListTitle, updateOnDragEnd, submitChangesToApi, deleteHandler}}>
+    <AllDataContext.Provider value={{ data, dataChanged, newAddHandler, updateListTitle, updateOnDragEnd, submitChangesToApi, deleteHandler}}>
       {props.children}
     </AllDataContext.Provider>
   ) 
