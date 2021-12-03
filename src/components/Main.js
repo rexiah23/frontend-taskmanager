@@ -17,7 +17,7 @@ const useStyle = makeStyles(theme => ({
 
 const Main = () => {
   const classes = useStyle(); 
-  const { data, updateOnDragEnd } = useContext(AllDataContext);
+  const { data, updateOnDragEnd, deleteHandler } = useContext(AllDataContext);
 
   if (data === 'loading...') {
     return <h1>loading...</h1>
@@ -25,7 +25,7 @@ const Main = () => {
 
   const allLists = data.listIds.map((listId, index) => {
     const list = data.lists[listId]; 
-    return <TaskList key={listId} list={list} index={index}/>
+    return <TaskList key={listId} list={list} index={index} deleteHandler={deleteHandler}/>
   });
 
   return (

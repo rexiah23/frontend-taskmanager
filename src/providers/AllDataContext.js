@@ -6,7 +6,7 @@ const AllDataContext = React.createContext();
 const AllDataProvider = (props) => {
 
   const [data, setData] = useState('loading...');
-  const [dataChanged, setDataChanged] = useState(true); 
+  const [dataChanged, setDataChanged] = useState(false); 
 
   useEffect(() => {
     const url = 'http://localhost:8080/api/data';
@@ -86,8 +86,28 @@ const AllDataProvider = (props) => {
     setDataChanged(true);
   };
 
+  const submitChangesToApi = () => {
+    setDataChanged(false);
+  }
+
+  const deleteHandler = (item, type) => {
+    if (type === 'task') {
+      const taskIdFromParams = item.id; 
+      const url = `http://localhost:8080/api/data/task/${taskIdFromParams}`;
+      axios.delete(url)
+      .then(res => {
+        setData(prev => {
+          const dataCopy = {...prev};
+          const newTasks = dataCopy.lists[item.list_id].tasks.filter(el => el.id !== taskIdFromParams);
+          dataCopy.lists[item.list_id].tasks = newTasks; 
+          return dataCopy;
+        })
+      })
+    }
+  }
+
   return (
-    <AllDataContext.Provider value={{ data, addNewTask, addNewList, updateListTitle, updateOnDragEnd, dataChanged, setDataChanged}}>
+    <AllDataContext.Provider value={{ data, dataChanged, addNewTask, addNewList, updateListTitle, updateOnDragEnd, submitChangesToApi, deleteHandler}}>
       {props.children}
     </AllDataContext.Provider>
   ) 

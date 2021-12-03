@@ -18,9 +18,16 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-const TaskList = ({ list, index }) => {
+const TaskList = ({ list, index, deleteHandler }) => {
   const classes = useStyle();
-  const taskCards = list.tasks.map ((task, index) => <TaskCard key={task.id} task={task} index={index}/>); 
+  const taskCards = list.tasks.map ((task, index) => (
+    <TaskCard 
+      key={task.id} 
+      task={task} 
+      index={index}
+      deleteHandler={deleteHandler}
+      />
+  ));
 
   return (
   <Draggable draggableId={list.id} index={index}>
