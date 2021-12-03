@@ -8,17 +8,24 @@ const useStyles = makeStyles(theme => ({
   drawer: {
     width: '400px'
   }, 
-  menu: {
-    marginTop: theme.spacing(2),
+  menuContainer: {
     display: 'flex',
-    justifyConent: 'space-around',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap',
+  },
+  menu: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap'
   },
   box: {
-    width: '45%', 
+    width: '45%',
     height: '90px',
-    backgroundColor: 'white',
-    borderRadius: "9px",
-    marginBottom: theme.spacing(2)
+    background: 'grey',
+    display: 'flex',
+    alignItems: 'flex-end',
+    borderRadius: '8px',
+    marginTop: theme.spacing(2)
   },
   optionsContainer: {
     display: 'flex',
