@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   box: {
     width: '45%', 
     height: '90px',
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
     borderRadius: "9px",
     marginBottom: theme.spacing(2)
   },

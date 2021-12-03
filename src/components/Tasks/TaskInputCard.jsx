@@ -11,7 +11,7 @@ const useStyle = makeStyles((theme) => ({
     margin: theme.spacing(1)
   },
   confirmButton: {
-    background: 'blue',
+    background: 'green',
     color: '#fff',
     marginLeft:theme.spacing(1)
   }
