@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { AllDataContext } from '../../providers/AllDataContext';
 
-const TaskListTitle = ({ title, listId }) => {
+const TaskListTitle = ({ title, list, deleteHandler }) => {
   const [editing, setEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const { updateListTitle } = useContext(AllDataContext);
@@ -31,7 +31,7 @@ const TaskListTitle = ({ title, listId }) => {
   }
 
   const blurHandler = () => {
-    updateListTitle(newTitle, listId)
+    updateListTitle(newTitle, list.id)
     setEditing(false);
     
   }
@@ -58,7 +58,7 @@ const TaskListTitle = ({ title, listId }) => {
         >
         {title}
       </Typography>
-      <IconButton>
+      <IconButton onClick={() => deleteHandler(list, 'list')}>
         <MoreHorizIcon />  
       </IconButton>
       </div>}

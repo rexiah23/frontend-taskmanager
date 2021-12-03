@@ -91,20 +91,28 @@ const AllDataProvider = (props) => {
   }
 
   const deleteHandler = (item, type) => {
-    if (type === 'task') {
-      const taskIdFromParams = item.id; 
-      const url = `http://localhost:8080/api/data/task/${taskIdFromParams}`;
-      axios.delete(url)
+      const IdFromParams = item.id; 
+      const url = `http://localhost:8080/api/data/delete/${IdFromParams}`;
+      const body = { data: {type}};
+      axios.delete(url, body)
       .then(res => {
         setData(prev => {
           const dataCopy = {...prev};
-          const newTasks = dataCopy.lists[item.list_id].tasks.filter(el => el.id !== taskIdFromParams);
-          dataCopy.lists[item.list_id].tasks = newTasks; 
+          //if item to delete is a task, do the following:
+          if (type === 'task') {
+            const newTasks = dataCopy.lists[item.list_id].tasks.filter(el => el.id !== IdFromParams);
+            dataCopy.lists[item.list_id].tasks = newTasks; 
+            return dataCopy;
+          }
+          //if item to delete is a list, do the following:
+          delete dataCopy.lists[IdFromParams]; 
+          const listIndex = dataCopy.listIds.indexOf(IdFromParams); 
+          dataCopy.listIds.splice(listIndex, 1); 
           return dataCopy;
         })
       })
     }
-  }
+
 
   return (
     <AllDataContext.Provider value={{ data, dataChanged, addNewTask, addNewList, updateListTitle, updateOnDragEnd, submitChangesToApi, deleteHandler}}>

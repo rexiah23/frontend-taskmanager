@@ -35,7 +35,7 @@ const TaskList = ({ list, index, deleteHandler }) => {
       <div {...provided.draggableProps} ref={provided.innerRef}>
         <Paper className={classes.root} {...provided.dragHandleProps}>
           <CssBaseline />
-          <TaskListTitle title={list.title} listId={list.id}/>
+          <TaskListTitle title={list.title} list={list} deleteHandler={deleteHandler}/>
             <Droppable droppableId={list.id}>
               {(provided) => (
                 <div 
