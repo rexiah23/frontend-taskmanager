@@ -16,6 +16,7 @@ const ListTitle = ({ title, list, deleteHandler }) => {
     },
     editableTitle: {
       marginLeft:theme.spacing(1),
+      marginTop:theme.spacing(1),
       fontWeight: 'bold'
     }, 
     editableTitleInput : {
