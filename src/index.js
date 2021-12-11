@@ -6,9 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import { AllDataProvider } from './providers/AllDataContext';
 import { ColorsAndImagesProvider } from './providers/ColorsAndImagesContext';
 import axios from 'axios'; 
+require('dotenv').config()
 
 if (process.env.REACT_APP_API_BASE_URL) {
   axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+} else {
+  axios.defaults.baseURL = 'http://localhost:8080'
 }
 
 ReactDOM.render(

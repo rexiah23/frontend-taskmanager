@@ -9,10 +9,9 @@ const AllDataProvider = (props) => {
   const [dataChanged, setDataChanged] = useState(false); 
 
   useEffect(() => {
-    const url = 'http://localhost:8080/api/task/all';
+    const url = '/api/task/all';
     axios.get(url)
     .then(response => {
-      console.log('original ', response.data.refactoredData)
       setData(response.data.refactoredData);
     })
     .catch(err => {
@@ -22,7 +21,7 @@ const AllDataProvider = (props) => {
 
   const newAddHandler = (item) => {
     const {title, type, listId} = item; 
-    const url = `http://localhost:8080/api/${type}/add`;
+    const url = `/api/${type}/add`;
     axios.post(url, {title, listId})
     .then((response) => {
       setData(prev => {
@@ -44,7 +43,7 @@ const AllDataProvider = (props) => {
   }  
 
   const updateListTitleHandler = (title, listId) => {
-    const url = `http://localhost:8080/api/list/update-title`
+    const url = `/api/list/update-title`
     const body = {newTitle: title, listId}
     axios.put(url, body)
     .then(() => {
@@ -72,7 +71,7 @@ const AllDataProvider = (props) => {
       return; 
     }
     
-    const url = `http://localhost:8080/api/task/change-list-container`
+    const url = `/api/task/change-list-container`
     const body = {newListId: destination.droppableId, taskId: draggableId}
     axios.put(url, body)
     .then(() => {
@@ -95,7 +94,7 @@ const AllDataProvider = (props) => {
 
   const deleteHandler = (item, type) => {
     const IdFromParams = item.id; 
-      const url = `http://localhost:8080/api/${type}/delete/${IdFromParams}`;
+      const url = `/api/${type}/delete/${IdFromParams}`;
       axios.delete(url)
       .then(response => {
         setData(prev => {

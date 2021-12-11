@@ -35,7 +35,6 @@ const InputCard = ({ setShowInput, listId, type }) => {
       body = {title, type:'list'};
     };
 
-    console.log("BODY IS: ", body);
     newAddHandler(body); 
     setTitle('');
     setShowInput(false);
