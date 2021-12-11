@@ -5,6 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AllDataProvider } from './providers/AllDataContext';
 import { ColorsAndImagesProvider } from './providers/ColorsAndImagesContext';
+import axios from 'axios'; 
+
+if (process.env.REACT_APP_API_BASE_URL) {
+  axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+}
+
 ReactDOM.render(
   <AllDataProvider>
     <ColorsAndImagesProvider>
