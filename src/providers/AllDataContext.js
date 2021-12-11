@@ -11,8 +11,9 @@ const AllDataProvider = (props) => {
   useEffect(() => {
     const url = 'http://localhost:8080/api/task/all';
     axios.get(url)
-    .then(res => {
-      setData(res.data.response);
+    .then(response => {
+      console.log('original ', response.data.refactoredData)
+      setData(response.data.refactoredData);
     })
     .catch(err => {
       console.log(err.message)
@@ -24,11 +25,18 @@ const AllDataProvider = (props) => {
     const url = `http://localhost:8080/api/${type}/add`;
     axios.post(url, {title, listId})
     .then((response) => {
-      const newList = {...response.data.insertedListValue, tasks:[]}; 
       setData(prev => {
         const dataCopy = {...prev};
-        dataCopy.listIds.push(newList.id);
-        dataCopy.lists[newList.id] = newList; 
+        //if list added, do the following
+        if (type === 'list') {
+          const newList = {...response.data.insertedListValue, tasks:[]}; 
+          dataCopy.listIds.push(newList.id);
+          dataCopy.lists[newList.id] = newList; 
+          return dataCopy; 
+        } 
+        //if task added, do the following
+        const newTask = response.data.insertedTaskValue; 
+        dataCopy.lists[newTask.list_id].tasks.push(newTask);
         return dataCopy;
       })
     })
@@ -44,44 +52,56 @@ const AllDataProvider = (props) => {
     setDataChanged(true);
   };
 
-  const updateOnDragEnd = (result) => {
-    const { destination, source, draggableId, type } = result; 
+  const updateOnDragEnd = (responseult) => {
+    const { destination, source, draggableId, type } = responseult; 
 
-    if (!destination) return; 
-
-    if (type === 'list') {
-      setData(prev => {
-        const dataCopy = {...prev}; 
-        const newListIdOrder = dataCopy.listIds; 
-        newListIdOrder.splice(source.index, 1);
-        newListIdOrder.splice(destination.index, 0, draggableId);
-        return dataCopy;
-      })
-      return; 
-    }
-
-    setData(prev => {
-      const dataCopy = {...prev};
-      const sourceList = dataCopy.lists[source.droppableId];
-      const destinationList = dataCopy.lists[destination.droppableId];
-      const draggingTask = sourceList.tasks.filter(task => task.id === draggableId)[0];       
-      sourceList.tasks.splice(source.index, 1);
-      destinationList.tasks.splice(destination.index, 0, draggingTask);
-      return dataCopy; 
-    });
+    // if (!destination) return; 
     
-    setDataChanged(true);
-  };
+    // if (type === 'list') {
+    //   setData(prev => {
+    //     const dataCopy = {...prev}; 
+    //     const newListIdOrder = dataCopy.listIds; 
+    //     newListIdOrder.splice(source.index, 1);
+    //     newListIdOrder.splice(destination.index, 0, draggableId);
+    //     return dataCopy;
+    //   })
+    //   return; 
+    // }
+    // console.log('type is ', type)
+    // if (type === 'task') {
+      const url = `http://localhost:8080/api/task/change-list-container`
+        const body = {newListId: destination.droppableId, taskId: draggableId}
+        axios.put(url, body)
+        .then(() => {
+          setData(prev => {
+              const dataCopy = {...prev};
+              // console.log('dataCopy Before ', dataCopy);
+              const sourceList = dataCopy.lists[source.droppableId];
+              const destinationList = dataCopy.lists[destination.droppableId];
+              const draggingTask = sourceList.tasks.filter(task => task.id === draggableId)[0];       
+              sourceList.tasks.splice(source.index, 1);
+              draggingTask.list_id = destinationList.id;
+              destinationList.tasks.splice(destination.index, 0, draggingTask);
+              // console.log('dataCopy after ', dataCopy);
+
+              return dataCopy; 
+          });
+        });
+    // }
+      // setDataChanged(true);
+    };
 
   const submitChangesToApi = () => {
     setDataChanged(false);
   }
 
   const deleteHandler = (item, type) => {
+    console.log("ITEM IS: ", item);
+    console.log("Type iS: ", type);
     const IdFromParams = item.id; 
       const url = `http://localhost:8080/api/${type}/delete/${IdFromParams}`;
       axios.delete(url)
-      .then(res => {
+      .then(response => {
         setData(prev => {
           const dataCopy = {...prev};
           //if task deleted, do the following:
