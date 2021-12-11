@@ -43,61 +43,57 @@ const AllDataProvider = (props) => {
     .catch(err => console.log(err.message))
   }  
 
-  const updateListTitle = (title, listId) => {
-    setData(prev => {
-      const dataCopy = {...prev};
-      dataCopy.lists[listId].title = title; 
-      return dataCopy; 
+  const updateListTitleHandler = (title, listId) => {
+    const url = `http://localhost:8080/api/list/update-title`
+    const body = {newTitle: title, listId}
+    axios.put(url, body)
+    .then(() => {
+      setData(prev => {
+        const dataCopy = {...prev};
+        dataCopy.lists[listId].title = title; 
+        return dataCopy; 
+      });
     });
-    setDataChanged(true);
   };
 
   const updateOnDragEnd = (responseult) => {
     const { destination, source, draggableId, type } = responseult; 
 
-    // if (!destination) return; 
-    
-    // if (type === 'list') {
-    //   setData(prev => {
-    //     const dataCopy = {...prev}; 
-    //     const newListIdOrder = dataCopy.listIds; 
-    //     newListIdOrder.splice(source.index, 1);
-    //     newListIdOrder.splice(destination.index, 0, draggableId);
-    //     return dataCopy;
-    //   })
-    //   return; 
-    // }
-    // console.log('type is ', type)
-    // if (type === 'task') {
-      const url = `http://localhost:8080/api/task/change-list-container`
-        const body = {newListId: destination.droppableId, taskId: draggableId}
-        axios.put(url, body)
-        .then(() => {
-          setData(prev => {
-              const dataCopy = {...prev};
-              // console.log('dataCopy Before ', dataCopy);
-              const sourceList = dataCopy.lists[source.droppableId];
-              const destinationList = dataCopy.lists[destination.droppableId];
-              const draggingTask = sourceList.tasks.filter(task => task.id === draggableId)[0];       
-              sourceList.tasks.splice(source.index, 1);
-              draggingTask.list_id = destinationList.id;
-              destinationList.tasks.splice(destination.index, 0, draggingTask);
-              // console.log('dataCopy after ', dataCopy);
+    if (!destination) return; 
 
-              return dataCopy; 
-          });
-        });
-    // }
-      // setDataChanged(true);
-    };
+    if (type === 'list') {
+      setData(prev => {
+        const dataCopy = {...prev}; 
+        const newListIdOrder = dataCopy.listIds; 
+        newListIdOrder.splice(source.index, 1);
+        newListIdOrder.splice(destination.index, 0, draggableId);
+        return dataCopy;
+      })
+      return; 
+    }
+    
+    const url = `http://localhost:8080/api/task/change-list-container`
+    const body = {newListId: destination.droppableId, taskId: draggableId}
+    axios.put(url, body)
+    .then(() => {
+      setData(prev => {
+          const dataCopy = {...prev};
+          const sourceList = dataCopy.lists[source.droppableId];
+          const destinationList = dataCopy.lists[destination.droppableId];
+          const draggingTask = sourceList.tasks.filter(task => task.id === draggableId)[0];       
+          sourceList.tasks.splice(source.index, 1);
+          draggingTask.list_id = destinationList.id;
+          destinationList.tasks.splice(destination.index, 0, draggingTask);
+          return dataCopy; 
+      });
+    });
+  };
 
   const submitChangesToApi = () => {
     setDataChanged(false);
   }
 
   const deleteHandler = (item, type) => {
-    console.log("ITEM IS: ", item);
-    console.log("Type iS: ", type);
     const IdFromParams = item.id; 
       const url = `http://localhost:8080/api/${type}/delete/${IdFromParams}`;
       axios.delete(url)
@@ -120,9 +116,8 @@ const AllDataProvider = (props) => {
       .catch(err => console.log(err.message))
     }
 
-
   return (
-    <AllDataContext.Provider value={{ data, dataChanged, newAddHandler, updateListTitle, updateOnDragEnd, submitChangesToApi, deleteHandler}}>
+    <AllDataContext.Provider value={{ data, dataChanged, newAddHandler, updateOnDragEnd, submitChangesToApi, deleteHandler, updateListTitleHandler}}>
       {props.children}
     </AllDataContext.Provider>
   ) 

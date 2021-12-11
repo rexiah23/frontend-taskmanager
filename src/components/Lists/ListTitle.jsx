@@ -7,7 +7,7 @@ import { AllDataContext } from '../../providers/AllDataContext';
 const ListTitle = ({ title, list, deleteHandler }) => {
   const [editing, setEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
-  const { updateListTitle } = useContext(AllDataContext);
+  const { updateListTitleHandler } = useContext(AllDataContext);
 
   const useStyle = makeStyles((theme) => ({
     editableTitleContainer: {
@@ -32,9 +32,8 @@ const ListTitle = ({ title, list, deleteHandler }) => {
   }
 
   const blurHandler = () => {
-    updateListTitle(newTitle, list.id)
+    updateListTitleHandler(newTitle, list.id)
     setEditing(false);
-    
   }
 
   const classes = useStyle();
