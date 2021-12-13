@@ -4,7 +4,6 @@ import { AllDataContext } from '../providers/AllDataContext';
 import {makeStyles} from "@material-ui/core/styles";
 import InputContainer from './Input/InputContainer';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import SaveButton from './SaveButton';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -29,23 +28,20 @@ const Main = () => {
   });
 
   return (
-    <>
-      <SaveButton/>
-      <DragDropContext onDragEnd={updateOnDragEnd}>
-        <Droppable droppableId="app" type="list" direction="horizontal">
-          {(provided) => (
-            <div 
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-              className={classes.root}>
-              {allLists}
-              <InputContainer type="list"/>
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </>
+    <DragDropContext onDragEnd={updateOnDragEnd}>
+      <Droppable droppableId="app" type="list" direction="horizontal">
+        {(provided) => (
+          <div 
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            className={classes.root}>
+            {allLists}
+            <InputContainer type="list"/>
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 }
 

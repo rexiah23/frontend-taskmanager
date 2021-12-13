@@ -21,11 +21,13 @@ const useStyle = makeStyles((theme) => ({
 
 const TaskCard = ({ task, index, deleteHandler }) => {
   const classes = useStyle(); 
-
+  
   return (
-      <Draggable draggableId={task.id} index={index}>
-        {(provided) => (
-          <div
+      <Draggable draggableId={task.id.toString()} index={index}>
+        {(provided) => {
+          
+          return (
+            <div
             ref={provided.innerRef}
             {...provided.dragHandleProps}
             {...provided.draggableProps}
@@ -37,7 +39,8 @@ const TaskCard = ({ task, index, deleteHandler }) => {
               </IconButton>
             </Paper>
           </div>
-        )}
+          )
+        }}
       </Draggable>
   );
 

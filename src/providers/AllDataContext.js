@@ -6,7 +6,6 @@ const AllDataContext = React.createContext();
 const AllDataProvider = (props) => {
 
   const [data, setData] = useState('loading...');
-  const [dataChanged, setDataChanged] = useState(false); 
 
   useEffect(() => {
     const url = '/api/task/all';
@@ -20,22 +19,23 @@ const AllDataProvider = (props) => {
   }, []);
 
   const newAddHandler = (item) => {
-    const {title, type, listId} = item; 
+    const {title, type, listIdParsed: listId} = item; 
     const url = `/api/${type}/add`;
     axios.post(url, {title, listId})
     .then((response) => {
+      const newId = response.data.insertedId
       setData(prev => {
         const dataCopy = {...prev};
-        //if list added, do the following
+        //if added item is a list, do the following
         if (type === 'list') {
-          const newList = {...response.data.insertedListValue, tasks:[]}; 
-          dataCopy.listIds.push(newList.id);
+          const newList = {id: newId, title, tasks:[]}; 
+          dataCopy.listIds.push(newId);
           dataCopy.lists[newList.id] = newList; 
           return dataCopy; 
         } 
-        //if task added, do the following
-        const newTask = response.data.insertedTaskValue; 
-        dataCopy.lists[newTask.list_id].tasks.push(newTask);
+        //if added item is a task, do the following
+        const newTask = {content: title, list_id: listId, id: newId}; 
+        dataCopy.lists[listId].tasks.push(newTask);
         return dataCopy;
       })
     })
@@ -52,51 +52,52 @@ const AllDataProvider = (props) => {
         dataCopy.lists[listId].title = title; 
         return dataCopy; 
       });
-    });
+    })
+    .catch(err => console.log(err.message));
   };
 
   const updateOnDragEnd = (responseult) => {
     const { destination, source, draggableId, type } = responseult; 
-
+  
     if (!destination) return; 
 
     if (type === 'list') {
       setData(prev => {
         const dataCopy = {...prev}; 
+        const draggableIdParsed = draggableId.slice(0, -1);
         const newListIdOrder = dataCopy.listIds; 
         newListIdOrder.splice(source.index, 1);
-        newListIdOrder.splice(destination.index, 0, draggableId);
+        newListIdOrder.splice(destination.index, 0, draggableIdParsed);
         return dataCopy;
       })
       return; 
     }
-    
+
+    const sourceIdParsed = source.droppableId.slice(0, -1);
+    const destinationIdParsed = destination.droppableId.slice(0, -1);
     const url = `/api/task/change-list-container`
-    const body = {newListId: destination.droppableId, taskId: draggableId}
+    const body = {newListId: destinationIdParsed, taskId: draggableId}
     axios.put(url, body)
     .then(() => {
       setData(prev => {
-          const dataCopy = {...prev};
-          const sourceList = dataCopy.lists[source.droppableId];
-          const destinationList = dataCopy.lists[destination.droppableId];
-          const draggingTask = sourceList.tasks.filter(task => task.id === draggableId)[0];       
-          sourceList.tasks.splice(source.index, 1);
-          draggingTask.list_id = destinationList.id;
-          destinationList.tasks.splice(destination.index, 0, draggingTask);
-          return dataCopy; 
+        const dataCopy = {...prev};
+        const sourceList = dataCopy.lists[sourceIdParsed];
+        const destinationList = dataCopy.lists[destinationIdParsed]; 
+        const draggingTask = sourceList.tasks.filter(task => task.id === parseInt(draggableId))[0];
+        sourceList.tasks.splice(source.index, 1);
+        draggingTask.list_id = destinationList.id;
+        destinationList.tasks.splice(destination.index, 0, draggingTask);
+        return dataCopy; 
       });
-    });
+    })
+    .catch(err => console.log(err.message));
   };
-
-  const submitChangesToApi = () => {
-    setDataChanged(false);
-  }
 
   const deleteHandler = (item, type) => {
     const IdFromParams = item.id; 
       const url = `/api/${type}/delete/${IdFromParams}`;
       axios.delete(url)
-      .then(response => {
+      .then(() => {
         setData(prev => {
           const dataCopy = {...prev};
           //if task deleted, do the following:
@@ -116,7 +117,7 @@ const AllDataProvider = (props) => {
     }
 
   return (
-    <AllDataContext.Provider value={{ data, dataChanged, newAddHandler, updateOnDragEnd, submitChangesToApi, deleteHandler, updateListTitleHandler}}>
+    <AllDataContext.Provider value={{ data, newAddHandler, updateOnDragEnd, deleteHandler, updateListTitleHandler}}>
       {props.children}
     </AllDataContext.Provider>
   ) 

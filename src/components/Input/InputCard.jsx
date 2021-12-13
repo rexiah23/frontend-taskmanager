@@ -30,11 +30,11 @@ const InputCard = ({ setShowInput, listId, type }) => {
   const addNewItemHandler = () => {
     let body = {};
     if (type === 'task') {
-      body = {title, listId, type:'task'};
+      const listIdParsed = listId.slice(0, -1);
+      body = {title, listIdParsed, type:'task'};
     } else {
       body = {title, type:'list'};
     };
-
     newAddHandler(body); 
     setTitle('');
     setShowInput(false);

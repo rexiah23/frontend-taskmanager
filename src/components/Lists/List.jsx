@@ -30,13 +30,13 @@ const List = ({ list, index, deleteHandler }) => {
   ));
 
   return (
-  <Draggable draggableId={list.id} index={index}>
+  <Draggable draggableId={`${list.id}_`} index={index}>
     {(provided) => (
       <div {...provided.draggableProps} ref={provided.innerRef}>
         <Paper className={classes.root} {...provided.dragHandleProps}>
           <CssBaseline />
           <ListTitle title={list.title} list={list} deleteHandler={deleteHandler}/>
-            <Droppable droppableId={list.id}>
+            <Droppable droppableId={`${list.id}_`}>
               {(provided) => (
                 <div 
                   ref={provided.innerRef} 
@@ -48,7 +48,7 @@ const List = ({ list, index, deleteHandler }) => {
                 </div>
               )}
             </Droppable>
-          <InputContainer listId={list.id} type="task"/>
+          <InputContainer listId={`${list.id}_`} type="task"/>
         </Paper>
       </div>
     )}
