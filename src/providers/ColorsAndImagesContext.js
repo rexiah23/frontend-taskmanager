@@ -7,20 +7,38 @@ const ColorsAndImagesContext = React.createContext();
 
 const ColorsAndImagesProvider = props => {
   const [imageUrls, setImageUrls] = useState([]);
-  const [selectedBackground, setSelectedBackground] = useState('https://images.pexels.com/photos/1766838/pexels-photo-1766838.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260'); 
+  const [selectedBackground, setSelectedBackground] = useState(); 
 
   useEffect(() => {
     const page = Math.floor(Math.random() * 50 + 1); 
     const imageApiUrl = 
     `${config.url}search/photos?page=${page}&query=landscapes&client_id=${config.clientKey}`
-    axios.get(imageApiUrl)
-    .then(res => {
-      setImageUrls(res.data.results); 
-    });
-  }, []); 
+    const backgroundApiUrl = `/api/background`
+
+    const imageApiRequest = axios.get(imageApiUrl); 
+    const backgroundApiRequest = axios.get(backgroundApiUrl)
+   
+    axios.all([imageApiRequest, backgroundApiRequest])
+    .then(axios.spread((...responses) => {
+      const responseOne = responses[0];
+      const responseTwo = responses[1];
+      setImageUrls(responseOne.data.results); 
+      setSelectedBackground(responseTwo.data.url.url)
+    }))
+    .catch(err => console.log(err.message))
+  }, []);
+
+
+  const updateSelectedBackground = (backgroundUrl) => {
+    const url = `/api/background`;
+
+    axios.put(url, {backgroundUrl})
+    .then(() => setSelectedBackground(backgroundUrl))
+    .catch(err => console.log(err.message));
+  }
 
   return (
-    <ColorsAndImagesContext.Provider value={{imageUrls, setImageUrls, selectedBackground, setSelectedBackground}}>
+    <ColorsAndImagesContext.Provider value={{imageUrls, setImageUrls, selectedBackground, updateSelectedBackground}}>
       {props.children}
     </ColorsAndImagesContext.Provider>
   );
