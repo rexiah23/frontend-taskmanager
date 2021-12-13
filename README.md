@@ -7,7 +7,7 @@
 
 ### Setup
 In the terminal, run these commands:
-1. Delete the .env file if you want to connect to the local server. 
+1. Delete the .env file if you want to connect to the local server (by default is connected to heroku hosted server). 
 2. Install dependencies with `npm install`.
 
 To start the frontend: 
