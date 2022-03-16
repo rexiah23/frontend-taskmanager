@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 
-import DraggableList from './Lists/DraggableList';
+import DraggableList from '../UI/Lists/DraggableList';
 import { AllDataContext } from '../providers/AllDataContext';
 import {makeStyles} from "@material-ui/core/styles";
-import AddNewItemInput from './Input/AddNewItemInput';
+import AddNewItemInput from '../UI/Input/AddNewItemInput';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import TaskCard from './Tasks/TaskCard';
+import TaskCard from '../UI/Tasks/TaskCard';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -28,9 +28,8 @@ const TasksList = () => {
     const list = data.lists[listId]; 
     return <DraggableList 
       key={listId} 
-      index={index} 
       value={list} 
-      deleteHandler={deleteHandler} 
+      index={index} 
     >
       {list.tasks.map((task, index) => (
         <TaskCard 
