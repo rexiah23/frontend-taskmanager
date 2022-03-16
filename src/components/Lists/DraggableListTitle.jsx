@@ -4,35 +4,36 @@ import { makeStyles } from "@material-ui/core/styles";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { AllDataContext } from '../../providers/AllDataContext';
 
-const ListTitle = ({ title, list, deleteHandler }) => {
-  const [editing, setEditing] = useState(false);
-  const [newTitle, setNewTitle] = useState(title);
-  const { updateListTitleHandler } = useContext(AllDataContext);
-
-  const useStyle = makeStyles((theme) => ({
-    editableTitleContainer: {
-      display:"flex",
-      justifyContent:"space-between"
-    },
-    editableTitle: {
-      marginLeft:theme.spacing(1),
-      marginTop:theme.spacing(1),
-      fontWeight: 'bold'
-    }, 
-    editableTitleInput : {
-      margin: theme.spacing(1), 
-      "&:focus":{
-        background:"#ddd"
-      }
+const useStyle = makeStyles((theme) => ({
+  editableTitleContainer: {
+    display:"flex",
+    justifyContent:"space-between"
+  },
+  editableTitle: {
+    marginLeft:theme.spacing(1),
+    marginTop:theme.spacing(1),
+    fontWeight: 'bold'
+  }, 
+  editableTitleInput : {
+    margin: theme.spacing(1), 
+    "&:focus":{
+      background:"#ddd"
     }
-  }));
+  }
+}))
 
-  const newTitleHandler = event => {
+const DraggableListTitle = ({ value, onDelete, onChange }) => {
+  const [editing, setEditing] = useState(false);
+  const [newTitle, setNewTitle] = useState(value);
+  // const { updateListTitleHandler } = useContext(AllDataContext);
+
+
+  const onChangeTitleHandler = event => {
     setNewTitle(event.target.value);
   }
 
-  const blurHandler = () => {
-    updateListTitleHandler(newTitle, list.id)
+  const onSaveTitleHandler = () => {
+    onChange(newTitle); 
     setEditing(false);
   }
 
@@ -46,9 +47,9 @@ const ListTitle = ({ title, list, deleteHandler }) => {
           className: classes.editableTitleInput
         }}
         fullWidth
-        onBlur = {blurHandler}
+        onBlur={onSaveTitleHandler}
         autoFocus
-        onChange={newTitleHandler}
+        onChange={onChangeTitleHandler}
         />
         </div>}
     {!editing && <div className={classes.editableTitleContainer}>
@@ -56,9 +57,9 @@ const ListTitle = ({ title, list, deleteHandler }) => {
         onClick={() => setEditing(true)}
         className={classes.editableTitle}
         >
-        {title}
+        {value}
       </Typography>
-      <IconButton onClick={() => deleteHandler(list, 'list')}>
+      <IconButton onClick={() => onDelete(newTitle)}>
         <MoreHorizIcon />  
       </IconButton>
       </div>}
@@ -66,4 +67,4 @@ const ListTitle = ({ title, list, deleteHandler }) => {
   );
 }
 
-export default ListTitle;
+export default DraggableListTitle;

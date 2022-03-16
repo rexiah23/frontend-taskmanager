@@ -17,7 +17,8 @@ const useStyle = makeStyles((theme) => ({
   }
 }))
 
-const InputContainer = ({ listId, type }) => {
+
+const AddNewItemInput = ({ listId, type='list' }) => {
   const [showInput, setShowInput] = useState(false);
   const classes = useStyle(); 
 
@@ -40,4 +41,4 @@ const InputContainer = ({ listId, type }) => {
     </div>
   )
 }
-export default InputContainer;
+export default AddNewItemInput;

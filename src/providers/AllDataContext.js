@@ -6,7 +6,6 @@ const AllDataContext = React.createContext();
 const AllDataProvider = (props) => {
 
   const [data, setData] = useState('loading...');
-  
   useEffect(() => {
     const url = '/api/task/all';
     axios.get(url)
@@ -54,7 +53,7 @@ const AllDataProvider = (props) => {
       });
     })
     .catch(err => console.log(err.message));
-  };
+  }
 
   const updateOnDragEnd = (responseult) => {
     const { destination, source, draggableId, type } = responseult; 
@@ -91,7 +90,7 @@ const AllDataProvider = (props) => {
       });
     })
     .catch(err => console.log(err.message));
-  };
+  }
 
   const deleteHandler = (item, type) => {
     const IdFromParams = item.id; 
@@ -114,7 +113,7 @@ const AllDataProvider = (props) => {
         })
       })
       .catch(err => console.log(err.message))
-    }
+  }
 
   return (
     <AllDataContext.Provider value={{ data, newAddHandler, updateOnDragEnd, deleteHandler, updateListTitleHandler}}>

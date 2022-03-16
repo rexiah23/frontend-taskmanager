@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Main from './components/Main';
+import TasksList from './components/TasksList';
 import Navigation from './components/Navigation/Navigation';
 import { ColorsAndImagesContext } from './providers/ColorsAndImagesContext';
 
@@ -14,7 +14,7 @@ export default function App() {
       backgroundSize: 'cover'
     }}>
       <Navigation/>
-      <Main/>
+      <TasksList/>
     </div>
   );
 };

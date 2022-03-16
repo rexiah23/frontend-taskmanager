@@ -1,9 +1,11 @@
 import { useContext } from 'react';
-import List from './Lists/List';
+
+import DraggableList from './Lists/DraggableList';
 import { AllDataContext } from '../providers/AllDataContext';
 import {makeStyles} from "@material-ui/core/styles";
-import InputContainer from './Input/InputContainer';
+import AddNewItemInput from './Input/AddNewItemInput';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import TaskCard from './Tasks/TaskCard';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -14,9 +16,9 @@ const useStyle = makeStyles(theme => ({
   }
 }))
 
-const Main = () => {
-  const classes = useStyle(); 
-  const { data, updateOnDragEnd, deleteHandler } = useContext(AllDataContext);
+const TasksList = () => {
+  const classes = useStyle()
+  const { data, updateOnDragEnd, deleteHandler } = useContext(AllDataContext)
 
   if (data === 'loading...') {
     return <h1>loading...</h1>
@@ -24,7 +26,21 @@ const Main = () => {
   
   const allLists = data.listIds.map((listId, index) => {
     const list = data.lists[listId]; 
-    return <List key={listId} list={list} index={index} deleteHandler={deleteHandler} />
+    return <DraggableList 
+      key={listId} 
+      index={index} 
+      value={list} 
+      deleteHandler={deleteHandler} 
+    >
+      {list.tasks.map((task, index) => (
+        <TaskCard 
+          key={task.id} 
+          task={task} 
+          index={index}
+          deleteHandler={deleteHandler}
+        />
+      ))}
+    </DraggableList>
   });
 
   return (
@@ -36,7 +52,7 @@ const Main = () => {
             {...provided.droppableProps}
             className={classes.root}>
             {allLists}
-            <InputContainer type="list"/>
+            <AddNewItemInput type="list"/>
             {provided.placeholder}
           </div>
         )}
@@ -45,4 +61,4 @@ const Main = () => {
   );
 }
 
-export default Main;
+export default TasksList;
