@@ -19,6 +19,9 @@ const AllDataProvider = (props) => {
 
   const newAddHandler = (item) => {
     const {content, type, listIdParsed: listId} = item; 
+    console.log('content', content);
+    console.log('type', type);
+    console.log('listIdParsed', listId);
     const url = `/api/${type}/add`;
     axios.post(url, {content, listId})
     .then((response) => {

@@ -16,24 +16,17 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-const InputCard = ({ value, onChange, type='list' }) => {
+const TaskOrListContentInput = ({ value, onChange }) => {
   const classes = useStyle(); 
-  const [itemContent, setItemContent] = useState('')
+  const [content, setContent] = useState('')
 
-  const titleChangeHandler = event => {
-    setItemContent(event.target.value); 
+  const contentChangeHandler = event => {
+    setContent(event.target.value); 
   }
 
-  const addNewItemHandler = () => {
-    let body = {};
-    if (type === 'task') {
-      const listIdParsed = value.slice(0, -1);
-      body = {content: itemContent, listIdParsed, type:'task'};
-    } else {
-      body = {content: itemContent, type:'list'};
-    };
-    onChange(body); 
-    setItemContent('');
+  const submitNewTaskOrListHandler = () => {
+    onChange(content); 
+    setContent('');
   }
 
   return (
@@ -44,15 +37,16 @@ const InputCard = ({ value, onChange, type='list' }) => {
             multiline 
             onBlur = {() => onChange()}
             fullWidth 
-            placeholder={type === 'task' ? "Enter a new task...": "Enter a new list..." }
-            value={itemContent}
-            onChange={titleChangeHandler}
+            // placeholder={type === 'task' ? "Enter a new task...": "Enter a new list..." }
+            placeholder={`Enter a new ${value}...`}
+            value={content}
+            onChange={contentChangeHandler}
           />
         </Paper>
       </div>
       <div>
-        <Button className={classes.confirmButton} onClick={addNewItemHandler}>
-          {type === 'task' ? "Add task" : "Add list"}
+        <Button className={classes.confirmButton} onClick={submitNewTaskOrListHandler}>
+          {`Add a ${value}`}
         </Button>
         <IconButton onClick={() => onChange()}>
           <ClearIcon />
@@ -61,4 +55,4 @@ const InputCard = ({ value, onChange, type='list' }) => {
     </div>
   )
 }
-export default InputCard;
+export default TaskOrListContentInput;

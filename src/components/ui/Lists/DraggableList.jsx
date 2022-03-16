@@ -2,7 +2,7 @@ import React, { createContext, useMemo, useContext } from 'react';
 import { Paper, CssBaseline } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import DraggableListTitle from './DraggableListTitle';
-import InputContainer from '../Input/AddNewItemInput';
+import InputContainer from '../Input/AddNewTaskOrList';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { AllDataContext } from '../../../providers/AllDataContext';
 

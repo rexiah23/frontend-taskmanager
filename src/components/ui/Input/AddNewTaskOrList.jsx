@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Collapse, Paper, Typography } from '@material-ui/core';
 import { makeStyles, alpha } from "@material-ui/core/styles";
-import InputCard from './InputCard';
+import TaskOrListContentInput from './TaskOrListContentInput';
 import { AllDataContext } from '../../../providers/AllDataContext';
 
 const useStyle = makeStyles((theme) => ({
@@ -19,23 +19,29 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 
-const AddNewItemInput = ({ listId, type='list' }) => {
+const AddNewTaskOrList = ({ listId, type='list' }) => {
   const [showInput, setShowInput] = useState(false);
   const { newAddHandler } = useContext(AllDataContext) 
   const classes = useStyle(); 
 
-  const onAddNewItem = (newItemContent) => {
-    if (newItemContent) {
-      newAddHandler(newItemContent)
+  const submitNewTaskOrListHandler = (content) => {
+    if (content) {
+      let content_ = {};
+      if (type === 'task') {
+        const listIdParsed = listId.slice(0, -1);
+        content_ = {content, type:'task', listIdParsed};
+      } else {
+        content_ = {content, type:'list'};
+      };
+      newAddHandler(content_)
     }
     setShowInput(false)
   }
 
-  console.log('showInput', showInput)
   return (
     <div className={classes.root}>
       <Collapse in={showInput}>
-        <InputCard value={listId} onChange={onAddNewItem} type={type}/>
+        <TaskOrListContentInput value={type} onChange={submitNewTaskOrListHandler} />
       </Collapse>
       <Collapse in={!showInput}>
         <Paper 
@@ -51,4 +57,4 @@ const AddNewItemInput = ({ listId, type='list' }) => {
     </div>
   )
 }
-export default AddNewItemInput;
+export default AddNewTaskOrList;
