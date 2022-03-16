@@ -18,22 +18,22 @@ const AllDataProvider = (props) => {
   }, []);
 
   const newAddHandler = (item) => {
-    const {title, type, listIdParsed: listId} = item; 
+    const {content, type, listIdParsed: listId} = item; 
     const url = `/api/${type}/add`;
-    axios.post(url, {title, listId})
+    axios.post(url, {content, listId})
     .then((response) => {
       const newId = response.data.insertedId
       setData(prev => {
         const dataCopy = {...prev};
         //if added item is a list, do the following
         if (type === 'list') {
-          const newList = {id: newId, title, tasks:[]}; 
+          const newList = {id: newId, content, tasks:[]}; 
           dataCopy.listIds.push(newId);
           dataCopy.lists[newList.id] = newList; 
           return dataCopy; 
         } 
         //if added item is a task, do the following
-        const newTask = {content: title, list_id: listId, id: newId}; 
+        const newTask = {content: content, list_id: listId, id: newId}; 
         dataCopy.lists[listId].tasks.push(newTask);
         return dataCopy;
       })
@@ -41,14 +41,14 @@ const AllDataProvider = (props) => {
     .catch(err => console.log(err.message))
   }  
 
-  const updateListTitleHandler = (title, listId) => {
-    const url = `/api/list/update-title`
-    const body = {newTitle: title, listId}
+  const updateListcontentHandler = (content, listId) => {
+    const url = `/api/list/update-content`
+    const body = {newcontent: content, listId}
     axios.put(url, body)
     .then(() => {
       setData(prev => {
         const dataCopy = {...prev};
-        dataCopy.lists[listId].title = title; 
+        dataCopy.lists[listId].content = content; 
         return dataCopy; 
       });
     })
@@ -116,7 +116,7 @@ const AllDataProvider = (props) => {
   }
 
   return (
-    <AllDataContext.Provider value={{ data, newAddHandler, updateOnDragEnd, deleteHandler, updateListTitleHandler}}>
+    <AllDataContext.Provider value={{ data, newAddHandler, updateOnDragEnd, deleteHandler, updateListcontentHandler}}>
       {props.children}
     </AllDataContext.Provider>
   ) 

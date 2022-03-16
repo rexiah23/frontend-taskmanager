@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import TasksList from './components/TasksList';
-import Navigation from './components/Navigation/Navigation';
+import Navigation from './components/Navigation';
 import { ColorsAndImagesContext } from './providers/ColorsAndImagesContext';
 
 export default function App() {

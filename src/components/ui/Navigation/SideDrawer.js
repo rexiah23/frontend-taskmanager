@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, Grow } from '@material-ui/core';
-import colors from '../../colors/colors';
-import { ColorsAndImagesContext } from '../../providers/ColorsAndImagesContext';
+import colors from '../../../colors/colors';
+import { ColorsAndImagesContext } from '../../../providers/ColorsAndImagesContext';
 
 const useStyles = makeStyles(theme => ({
   drawer: {

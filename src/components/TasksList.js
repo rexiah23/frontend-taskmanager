@@ -1,12 +1,11 @@
 import { useContext } from 'react';
 
-import DraggableList from '../UI/Lists/DraggableList';
+import DraggableList from './ui/Lists/DraggableList';
 import { AllDataContext } from '../providers/AllDataContext';
 import {makeStyles} from "@material-ui/core/styles";
-import AddNewItemInput from '../UI/Input/AddNewItemInput';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import TaskCard from '../UI/Tasks/TaskCard';
-
+import TaskCard from './ui/Tasks/TaskCard';
+import AddNewItemInput from './ui/Input/AddNewItemInput';
 const useStyle = makeStyles(theme => ({
   root: {
     display: 'flex', 

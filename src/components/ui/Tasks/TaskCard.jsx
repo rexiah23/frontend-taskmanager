@@ -18,7 +18,6 @@ const useStyle = makeStyles((theme) => ({
   }
  })); 
 
-
 const TaskCard = ({ task, index, deleteHandler }) => {
   const classes = useStyle(); 
   

@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Paper, InputBase, Button, IconButton } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import ClearIcon from "@material-ui/icons/Clear";
-import { AllDataContext } from '../../providers/AllDataContext';
 
 const useStyle = makeStyles((theme) => ({
   InputCard: {
@@ -17,27 +16,24 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-const InputCard = ({ setShowInput, listId, type }) => {
+const InputCard = ({ value, onChange, type='list' }) => {
   const classes = useStyle(); 
-  const [title, setTitle] = useState('')
-  const { newAddHandler } = useContext(AllDataContext); 
-
+  const [itemContent, setItemContent] = useState('')
 
   const titleChangeHandler = event => {
-    setTitle(event.target.value); 
+    setItemContent(event.target.value); 
   }
 
   const addNewItemHandler = () => {
     let body = {};
     if (type === 'task') {
-      const listIdParsed = listId.slice(0, -1);
-      body = {title, listIdParsed, type:'task'};
+      const listIdParsed = value.slice(0, -1);
+      body = {content: itemContent, listIdParsed, type:'task'};
     } else {
-      body = {title, type:'list'};
+      body = {content: itemContent, type:'list'};
     };
-    newAddHandler(body); 
-    setTitle('');
-    setShowInput(false);
+    onChange(body); 
+    setItemContent('');
   }
 
   return (
@@ -46,10 +42,10 @@ const InputCard = ({ setShowInput, listId, type }) => {
         <Paper className={classes.InputCard}>
           <InputBase 
             multiline 
-            onBlur = {() => setShowInput(false)}
+            onBlur = {() => onChange()}
             fullWidth 
             placeholder={type === 'task' ? "Enter a new task...": "Enter a new list..." }
-            value={title}
+            value={itemContent}
             onChange={titleChangeHandler}
           />
         </Paper>
@@ -58,7 +54,7 @@ const InputCard = ({ setShowInput, listId, type }) => {
         <Button className={classes.confirmButton} onClick={addNewItemHandler}>
           {type === 'task' ? "Add task" : "Add list"}
         </Button>
-        <IconButton onClick={() => setShowInput(false)}>
+        <IconButton onClick={() => onChange()}>
           <ClearIcon />
         </IconButton>
       </div>

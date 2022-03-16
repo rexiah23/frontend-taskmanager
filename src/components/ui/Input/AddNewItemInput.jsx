@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Collapse, Paper, Typography } from '@material-ui/core';
 import { makeStyles, alpha } from "@material-ui/core/styles";
 import InputCard from './InputCard';
+import { AllDataContext } from '../../../providers/AllDataContext';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -20,12 +21,21 @@ const useStyle = makeStyles((theme) => ({
 
 const AddNewItemInput = ({ listId, type='list' }) => {
   const [showInput, setShowInput] = useState(false);
+  const { newAddHandler } = useContext(AllDataContext) 
   const classes = useStyle(); 
 
+  const onAddNewItem = (newItemContent) => {
+    if (newItemContent) {
+      newAddHandler(newItemContent)
+    }
+    setShowInput(false)
+  }
+
+  console.log('showInput', showInput)
   return (
     <div className={classes.root}>
       <Collapse in={showInput}>
-        <InputCard setShowInput={setShowInput} listId={listId} type={type}/>
+        <InputCard value={listId} onChange={onAddNewItem} type={type}/>
       </Collapse>
       <Collapse in={!showInput}>
         <Paper 

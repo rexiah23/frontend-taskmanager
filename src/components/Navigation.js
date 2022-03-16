@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import SideDrawer from './SideDrawer';
-import TopBar from './TopBar';
+import SideDrawer from './ui/Navigation/SideDrawer';
+import TopBar from './ui/Navigation/TopBar';
 
 const Navigation = props => {
  

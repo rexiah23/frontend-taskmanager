@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { IconButton, InputBase, Typography } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { AllDataContext } from '../../providers/AllDataContext';
 
 const useStyle = makeStyles((theme) => ({
   editableTitleContainer: {

@@ -2,10 +2,9 @@ import React, { createContext, useMemo, useContext } from 'react';
 import { Paper, CssBaseline } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import DraggableListTitle from './DraggableListTitle';
-import TaskCard from '../Tasks/TaskCard';
 import InputContainer from '../Input/AddNewItemInput';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { AllDataContext } from '../../providers/AllDataContext';
+import { AllDataContext } from '../../../providers/AllDataContext';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -27,9 +26,9 @@ const DraggableList = ({
   id = null, 
   title = null, 
 }) => {
-  const { deleteHandler, updateListTitleHandler } = useContext(AllDataContext);
+  const { deleteHandler, updateListTitleHandler } = useContext(AllDataContext)
 
-  const classes = useStyle();
+  const classes = useStyle()
 
   const memoizedState = useMemo(() => ({
     ...value, 
