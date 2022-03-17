@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { IconButton, InputBase, Typography } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -21,39 +21,37 @@ const useStyle = makeStyles((theme) => ({
   }
 }))
 
-const DraggableListTitle = ({ value, onDelete, onChange }) => {
-  const [editing, setEditing] = useState(false);
+const DraggableListTitle = ({ value, onChange, onDelete }) => {
+  const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(value);
-  // const { updateListTitleHandler } = useContext(AllDataContext);
 
-
-  const onChangeTitleHandler = event => {
+  const changeTitleHandler = event => {
     setNewTitle(event.target.value);
   }
 
-  const onSaveTitleHandler = () => {
+  const saveTitleHandler = () => {
     onChange(newTitle); 
-    setEditing(false);
+    setIsEditing(false);
   }
 
   const classes = useStyle();
   return (
   <div>
-    {editing && <div>
+    {isEditing && <div>
       <InputBase 
         value={newTitle}
         inputProps={{
           className: classes.editableTitleInput
         }}
         fullWidth
-        onBlur={onSaveTitleHandler}
+        onBlur={saveTitleHandler}
         autoFocus
-        onChange={onChangeTitleHandler}
+        onChange={changeTitleHandler}
         />
         </div>}
-    {!editing && <div className={classes.editableTitleContainer}>
+    {!isEditing && <div className={classes.editableTitleContainer}>
       <Typography 
-        onClick={() => setEditing(true)}
+        onClick={() => setIsEditing(true)}
         className={classes.editableTitle}
         >
         {value}

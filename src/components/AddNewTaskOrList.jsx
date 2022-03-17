@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { Collapse, Paper, Typography } from '@material-ui/core';
 import { makeStyles, alpha } from "@material-ui/core/styles";
-import TaskOrListContentInput from './TaskOrListContentInput';
-import { AllDataContext } from '../../../providers/AllDataContext';
+import NewItemContentInput from './ui/Input/NewItemContentInput';
+import { AllDataContext } from '../providers/AllDataContext';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -17,7 +17,6 @@ const useStyle = makeStyles((theme) => ({
     }
   }
 }))
-
 
 const AddNewTaskOrList = ({ listId, type='list' }) => {
   const [showInput, setShowInput] = useState(false);
@@ -41,7 +40,7 @@ const AddNewTaskOrList = ({ listId, type='list' }) => {
   return (
     <div className={classes.root}>
       <Collapse in={showInput}>
-        <TaskOrListContentInput value={type} onChange={submitNewTaskOrListHandler} />
+        <NewItemContentInput value={type} onChange={submitNewTaskOrListHandler} />
       </Collapse>
       <Collapse in={!showInput}>
         <Paper 

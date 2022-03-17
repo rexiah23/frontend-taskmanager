@@ -4,8 +4,9 @@ import DraggableList from './ui/Lists/DraggableList';
 import { AllDataContext } from '../providers/AllDataContext';
 import {makeStyles} from "@material-ui/core/styles";
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import TaskCard from './ui/Tasks/TaskCard';
-import AddNewItemInput from './ui/Input/AddNewTaskOrList';
+import AddNewItemInput from './AddNewTaskOrList';
+import TaskCards from './TaskCards';
+import TotalTaskCardsCounter from './TotalTaskCardsCounter';
 const useStyle = makeStyles(theme => ({
   root: {
     display: 'flex', 
@@ -15,9 +16,9 @@ const useStyle = makeStyles(theme => ({
   }
 }))
 
-const TasksList = () => {
+const AllLists = () => {
   const classes = useStyle()
-  const { data, updateOnDragEnd, deleteHandler } = useContext(AllDataContext)
+  const { data, updateOnDragEnd, updateListTitleHandler } = useContext(AllDataContext)
 
   if (data === 'loading...') {
     return <h1>loading...</h1>
@@ -27,17 +28,12 @@ const TasksList = () => {
     const list = data.lists[listId]; 
     return <DraggableList 
       key={listId} 
-      value={list} 
-      index={index} 
+      value={{...list, index}} 
+      onChange={updateListTitleHandler}
     >
-      {list.tasks.map((task, index) => (
-        <TaskCard 
-          key={task.id} 
-          task={task} 
-          index={index}
-          deleteHandler={deleteHandler}
-        />
-      ))}
+      <TaskCards />
+      {/* <CurrentlyInProgressTaskCard /> */}
+      {/* <TotalTaskCardsCounter /> */}
     </DraggableList>
   });
 
@@ -59,4 +55,4 @@ const TasksList = () => {
   );
 }
 
-export default TasksList;
+export default AllLists;

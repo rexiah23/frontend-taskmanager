@@ -19,18 +19,15 @@ const AllDataProvider = (props) => {
 
   const newAddHandler = (item) => {
     const {content, type, listIdParsed: listId} = item; 
-    console.log('content', content);
-    console.log('type', type);
-    console.log('listIdParsed', listId);
     const url = `/api/${type}/add`;
-    axios.post(url, {content, listId})
+    axios.post(url, {title:content, listId})
     .then((response) => {
       const newId = response.data.insertedId
       setData(prev => {
         const dataCopy = {...prev};
         //if added item is a list, do the following
         if (type === 'list') {
-          const newList = {id: newId, content, tasks:[]}; 
+          const newList = {id: newId, title:content, tasks:[]}; 
           dataCopy.listIds.push(newId);
           dataCopy.lists[newList.id] = newList; 
           return dataCopy; 
@@ -44,14 +41,14 @@ const AllDataProvider = (props) => {
     .catch(err => console.log(err.message))
   }  
 
-  const updateListcontentHandler = (content, listId) => {
-    const url = `/api/list/update-content`
-    const body = {newcontent: content, listId}
+  const updateListTitleHandler = (title, listId) => {
+    const url = `/api/list/update-title`
+    const body = {newTitle: title, listId}
     axios.put(url, body)
     .then(() => {
       setData(prev => {
         const dataCopy = {...prev};
-        dataCopy.lists[listId].content = content; 
+        dataCopy.lists[listId].title = title; 
         return dataCopy; 
       });
     })
@@ -119,7 +116,7 @@ const AllDataProvider = (props) => {
   }
 
   return (
-    <AllDataContext.Provider value={{ data, newAddHandler, updateOnDragEnd, deleteHandler, updateListcontentHandler}}>
+    <AllDataContext.Provider value={{ data, newAddHandler, updateOnDragEnd, deleteHandler, updateListTitleHandler}}>
       {props.children}
     </AllDataContext.Provider>
   ) 

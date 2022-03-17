@@ -18,13 +18,13 @@ const useStyle = makeStyles((theme) => ({
   }
  })); 
 
-const TaskCard = ({ task, index, deleteHandler }) => {
+const ItemCard = ({ value, deleteHandler }) => {
   const classes = useStyle(); 
-  
+  const {id, index, content} = value; 
+
   return (
-      <Draggable draggableId={task.id.toString()} index={index}>
+      <Draggable draggableId={`${id}`} index={index}>
         {(provided) => {
-          
           return (
             <div
             ref={provided.innerRef}
@@ -32,8 +32,8 @@ const TaskCard = ({ task, index, deleteHandler }) => {
             {...provided.draggableProps}
           >
             <Paper className={classes.taskCard}>
-              {task.content}
-              <IconButton className={classes.button} onClick={() => deleteHandler(task, 'task')}>
+              {content}
+              <IconButton className={classes.button} onClick={() => deleteHandler(value, 'value')}>
                 <RemoveCircleOutlineIcon fontSize='small'/>
               </IconButton>
             </Paper>
@@ -45,4 +45,4 @@ const TaskCard = ({ task, index, deleteHandler }) => {
 
 };
 
-export default TaskCard;
+export default ItemCard;

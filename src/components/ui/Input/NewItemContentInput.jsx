@@ -16,7 +16,7 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-const TaskOrListContentInput = ({ value, onChange }) => {
+const NewItemContentInput = ({ value, onChange }) => {
   const classes = useStyle(); 
   const [content, setContent] = useState('')
 
@@ -37,7 +37,6 @@ const TaskOrListContentInput = ({ value, onChange }) => {
             multiline 
             onBlur = {() => onChange()}
             fullWidth 
-            // placeholder={type === 'task' ? "Enter a new task...": "Enter a new list..." }
             placeholder={`Enter a new ${value}...`}
             value={content}
             onChange={contentChangeHandler}
@@ -55,4 +54,4 @@ const TaskOrListContentInput = ({ value, onChange }) => {
     </div>
   )
 }
-export default TaskOrListContentInput;
+export default NewItemContentInput;
