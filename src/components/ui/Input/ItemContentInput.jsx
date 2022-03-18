@@ -16,15 +16,15 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-const NewItemContentInput = ({ value, onChange }) => {
+const ItemContentInput = ({ value, onChange }) => {
   const classes = useStyle(); 
   const [content, setContent] = useState('')
 
-  const contentChangeHandler = event => {
+  const changeContentHandler = event => {
     setContent(event.target.value); 
   }
 
-  const submitNewTaskOrListHandler = () => {
+  const submitContentHandler = () => {
     onChange(content); 
     setContent('');
   }
@@ -39,12 +39,12 @@ const NewItemContentInput = ({ value, onChange }) => {
             fullWidth 
             placeholder={`Enter a new ${value}...`}
             value={content}
-            onChange={contentChangeHandler}
+            onChange={changeContentHandler}
           />
         </Paper>
       </div>
       <div>
-        <Button className={classes.confirmButton} onClick={submitNewTaskOrListHandler}>
+        <Button className={classes.confirmButton} onClick={submitContentHandler}>
           {`Add a ${value}`}
         </Button>
         <IconButton onClick={() => onChange()}>
@@ -54,4 +54,4 @@ const NewItemContentInput = ({ value, onChange }) => {
     </div>
   )
 }
-export default NewItemContentInput;
+export default ItemContentInput;

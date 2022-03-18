@@ -1,22 +1,28 @@
 import React, { useContext } from 'react';
-import { DraggableListContext } from './ui/Lists/DraggableList';
+import { DraggableListContext } from './ui/Lists/List';
+import { MakeDraggable } from './hocs/MakeDraggable';
+
 import ItemCard from './ui/Cards/ItemCard';
-import { withDraggable } from './hocs/withDraggable';
 
 const TaskCards = () => {
 
-  const { tasks } = useContext(DraggableListContext); 
+  const { tasks, onDelete } = useContext(DraggableListContext); 
 
-  const DraggableTaskCard = withDraggable(ItemCard);
+  const deleteItemCardHandler = (task) => {
+    onDelete(task, 'task')
+  }
 
   return (
     <>
-    {tasks.map((task, index) => (
-      <DraggableTaskCard 
-        key={task.id} 
-        value={{...task, index}}
-      />
-    ))}
+      {tasks.map((task, index) => (
+        <MakeDraggable key={task.id} id={task.id} index={index}>
+          <ItemCard 
+            key={task.id} 
+            value={task}
+            onDelete={deleteItemCardHandler}
+          />
+        </MakeDraggable>
+      ))}
     </>
   )
 }

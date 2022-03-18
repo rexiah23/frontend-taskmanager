@@ -5,9 +5,10 @@ import config from '../config/config';
 
 const ColorsAndImagesContext = React.createContext(); 
 
-const ColorsAndImagesProvider = props => {
+const ColorsAndImagesProvider = ({ children }) => {
   const [imageUrls, setImageUrls] = useState([]);
   const [selectedBackground, setSelectedBackground] = useState(); 
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const page = Math.floor(Math.random() * 50 + 1); 
@@ -17,7 +18,8 @@ const ColorsAndImagesProvider = props => {
 
     const imageApiRequest = axios.get(imageApiUrl); 
     const backgroundApiRequest = axios.get(backgroundApiUrl)
-   
+    
+    setIsLoading(true)
     axios.all([imageApiRequest, backgroundApiRequest])
     .then(axios.spread((...responses) => {
       const responseOne = responses[0];
@@ -26,20 +28,26 @@ const ColorsAndImagesProvider = props => {
       setSelectedBackground(responseTwo.data.url.url)
     }))
     .catch(err => console.log(err.message))
+    .finally(() => {
+      setIsLoading(false)
+    })
   }, []);
 
 
   const updateSelectedBackground = (backgroundUrl) => {
     const url = `/api/background`;
-
-    axios.put(url, {backgroundUrl})
-    .then(() => setSelectedBackground(backgroundUrl))
-    .catch(err => console.log(err.message));
+    setSelectedBackground(backgroundUrl)
+    // axios.put(url, {backgroundUrl})
+    // // .then(() => setSelectedBackground(backgroundUrl))
+    // .catch(err => console.log(err.message));
   }
-
+  
+  if (isLoading) {
+    return (<div>LOADDINGGG</div>)
+  }
   return (
     <ColorsAndImagesContext.Provider value={{imageUrls, setImageUrls, selectedBackground, updateSelectedBackground}}>
-      {props.children}
+      {children}
     </ColorsAndImagesContext.Provider>
   );
 };

@@ -21,32 +21,36 @@ const useStyle = makeStyles((theme) => ({
   }
 }))
 
-const DraggableListTitle = ({ value, onChange, onDelete }) => {
+const ListTitle = ({ value, onChange, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [newTitle, setNewTitle] = useState(value);
+  const [temporaryTitle, setTemporaryTitle] = useState(value);
 
-  const changeTitleHandler = event => {
-    setNewTitle(event.target.value);
-  }
-
-  const saveTitleHandler = () => {
-    onChange(newTitle); 
+  const saveTemporaryTitleHandler = () => {
+    onChange(temporaryTitle); 
     setIsEditing(false);
   }
+
+  const changeTemporaryTitleHandler = event => {
+    setTemporaryTitle(event.target.value);
+  }
+
+  // const deleteTemporaryTitle = () => {
+  //   onDelete(temporaryTitle)
+  // }
 
   const classes = useStyle();
   return (
   <div>
     {isEditing && <div>
       <InputBase 
-        value={newTitle}
+        value={temporaryTitle}
         inputProps={{
           className: classes.editableTitleInput
         }}
         fullWidth
-        onBlur={saveTitleHandler}
+        onBlur={saveTemporaryTitleHandler}
         autoFocus
-        onChange={changeTitleHandler}
+        onChange={changeTemporaryTitleHandler}
         />
         </div>}
     {!isEditing && <div className={classes.editableTitleContainer}>
@@ -56,12 +60,12 @@ const DraggableListTitle = ({ value, onChange, onDelete }) => {
         >
         {value}
       </Typography>
-      <IconButton onClick={() => onDelete(newTitle)}>
+      {/* <IconButton onClick={deleteTemporaryTitle}>
         <MoreHorizIcon />  
-      </IconButton>
+      </IconButton> */}
       </div>}
   </div>
   );
 }
 
-export default DraggableListTitle;
+export default ListTitle;

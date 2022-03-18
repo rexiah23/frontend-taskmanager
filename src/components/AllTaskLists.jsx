@@ -1,12 +1,13 @@
 import { useContext } from 'react';
 
-import DraggableList from './ui/Lists/DraggableList';
+import List from './ui/Lists/List';
 import { AllDataContext } from '../providers/AllDataContext';
 import {makeStyles} from "@material-ui/core/styles";
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import AddNewItemInput from './AddNewTaskOrList';
 import TaskCards from './TaskCards';
+import AddNewTaskOrList from './AddNewTaskOrList';
 import TotalTaskCardsCounter from './TotalTaskCardsCounter';
+import { MakeDraggable, MakeDraggable2 } from './hocs/MakeDraggable';
 const useStyle = makeStyles(theme => ({
   root: {
     display: 'flex', 
@@ -18,7 +19,7 @@ const useStyle = makeStyles(theme => ({
 
 const AllTaskLists = () => {
   const classes = useStyle()
-  const { data, updateOnDragEnd, updateListTitleHandler } = useContext(AllDataContext)
+  const { data, updateOnDragEnd, updateListTitleHandler, deleteHandler } = useContext(AllDataContext)
 
   if (data === 'loading...') {
     return <h1>loading...</h1>
@@ -26,15 +27,28 @@ const AllTaskLists = () => {
   
   const allLists = data.listIds.map((listId, index) => {
     const list = data.lists[listId]; 
-    return <DraggableList 
-      key={listId} 
-      value={{...list, index}} 
-      onChange={updateListTitleHandler}
-    >
-      <TaskCards />
-      {/* <CurrentlyInProgressTaskCard /> */}
-      {/* <TotalTaskCardsCounter /> */}
-    </DraggableList>
+    return (
+      <>
+        <MakeDraggable key={`${listId}_`} id={`${listId}_`} index={index}>
+          <List 
+            key={listId} 
+            index={index}
+            value={{
+              id: list.id,
+              title: list.title,
+              tasks: list.tasks,
+            }} 
+            onChange={updateListTitleHandler}
+            onDelete={deleteHandler}
+          >
+            <TaskCards />
+            {/* <CurrentlyInProgressTaskCard /> */}
+            {/* <TotalTaskCardsCounter /> */}
+          </List>
+        </MakeDraggable>
+        <AddNewTaskOrList listId={listId} type="task"/>
+      </>
+    )
   });
 
   return (
@@ -46,7 +60,7 @@ const AllTaskLists = () => {
             {...provided.droppableProps}
             className={classes.root}>
             {allLists}
-            <AddNewItemInput type="list"/>
+            <AddNewTaskOrList type="list"/>
             {provided.placeholder}
           </div>
         )}

@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { Collapse, Paper, Typography } from '@material-ui/core';
 import { makeStyles, alpha } from "@material-ui/core/styles";
-import NewItemContentInput from './ui/Input/NewItemContentInput';
+import ItemContentInput from './ui/Input/ItemContentInput';
 import { AllDataContext } from '../providers/AllDataContext';
+import AddNewItemButton from './ui/Buttons/AddItemButton';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -27,8 +28,7 @@ const AddNewTaskOrList = ({ listId, type='list' }) => {
     if (content) {
       let content_ = {};
       if (type === 'task') {
-        const listIdParsed = listId.slice(0, -1);
-        content_ = {content, type:'task', listIdParsed};
+        content_ = {content, type:'task', listIdParsed: listId};
       } else {
         content_ = {content, type:'list'};
       };
@@ -40,18 +40,10 @@ const AddNewTaskOrList = ({ listId, type='list' }) => {
   return (
     <div className={classes.root}>
       <Collapse in={showInput}>
-        <NewItemContentInput value={type} onChange={submitNewTaskOrListHandler} />
+        <ItemContentInput value={type} onChange={submitNewTaskOrListHandler} />
       </Collapse>
       <Collapse in={!showInput}>
-        <Paper 
-          className={classes.addTask} 
-          elevation={0}
-          onClick={() => setShowInput(true)}
-          >
-          <Typography>
-            {type === 'list' ? '+ Add a List' : '+ Add a Task'}
-          </Typography>
-        </Paper>
+        <AddNewItemButton label={`Add a ${type}`} onClick={() => setShowInput(true)}/>
       </Collapse>
     </div>
   )

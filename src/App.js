@@ -5,7 +5,6 @@ import { ColorsAndImagesContext } from './providers/ColorsAndImagesContext';
 
 export default function App() {
   const { selectedBackground } = useContext(ColorsAndImagesContext);
-
   return (
     <div style={{
       backgroundColor: `${selectedBackground}`,

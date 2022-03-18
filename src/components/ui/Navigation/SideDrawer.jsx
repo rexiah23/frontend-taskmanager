@@ -1,8 +1,9 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, Grow } from '@material-ui/core';
 import colors from '../../../colors/colors';
 import { ColorsAndImagesContext } from '../../../providers/ColorsAndImagesContext';
+import DisplayBox from '../Display/DisplayBox';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -34,18 +35,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
+const SideDrawer = ({ isOpen, onToggle }) => {
   const classes = useStyles();
-  const [showColorOptions, setShowColorOptions] = useState(false);
-  const [showImageOptions, setShowImageOptions] = useState(false);
+  const [isColorsShown, setIsColorsShown] = useState(false);
+  const [isImagesShown, setIsImagesShown] = useState(true);
   const { imageUrls, updateSelectedBackground } = useContext(ColorsAndImagesContext);
 
   return (
     <div>
       <Drawer 
-        open={openSideDrawer} 
+        open={isOpen} 
         anchor='right' 
-        onClose={() => setOpenSideDrawer(false)}
+        onClose={() => onToggle(false)}
       >
         <div className={classes.drawer}>
           <div className={classes.menu}>
@@ -57,8 +58,8 @@ const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
                 backgroundSize: 'cover'
               }}
               onClick={() => {
-              setShowImageOptions(true);
-              setShowColorOptions(false);
+                setIsImagesShown(true);
+                setIsColorsShown(false);
             }}
               ></div>
             <div 
@@ -69,36 +70,31 @@ const SideDrawer = ({ setOpenSideDrawer, openSideDrawer }) => {
                 backgroundSize: 'cover'
               }}
               onClick={() => {
-                setShowColorOptions(true);
-                setShowImageOptions(false);
+                setIsColorsShown(true);
+                setIsImagesShown(false);
               }}
               ></div>
           </div>
-          {showImageOptions ? 
-            <Grow in={showImageOptions}>
+          {isImagesShown ? 
+            <Grow in={isImagesShown}>
               <div className={classes.optionsContainer}>
                 {imageUrls.map((image, index) => (
-                  <div
-                    key={index} 
-                    className={classes.box}
-                    style={{
-                      backgroundImage: `url(${image.urls.full})`,
-                      backgroundRepeat: 'no-repeat',
-                      backgroundSize: 'cover'
-                    }}
+                  <DisplayBox 
+                    key={index}
                     onClick={() => updateSelectedBackground(image.urls.full)}
-                  ></div>
+                    background={`url(${image.urls.full})`}
+                  />
                 ))}
               </div>
             </Grow>
-            :<Grow in={showColorOptions}>
+            :<Grow in={isColorsShown}>
                 <div className={classes.optionsContainer}>
                   {colors.map((color, index) => (
                     <div
                       key={index} 
                       className={classes.box}
                       style={{
-                        backgroundColor: color
+                        background: color
                       }}
                       onClick={() => updateSelectedBackground(color)}
                     ></div>

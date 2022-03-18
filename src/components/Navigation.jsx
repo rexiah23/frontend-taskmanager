@@ -2,14 +2,14 @@ import { useState } from 'react';
 import SideDrawer from './ui/Navigation/SideDrawer';
 import TopBar from './ui/Navigation/TopBar';
 
-const Navigation = props => {
+const Navigation = () => {
  
-  const [openSideDrawer, setOpenSideDrawer] = useState(false); 
+  const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false); 
 
   return (
     <div>
-        <TopBar setOpenSideDrawer={setOpenSideDrawer}/>
-        <SideDrawer setOpenSideDrawer={setOpenSideDrawer} openSideDrawer={openSideDrawer}/>
+        <TopBar onToggle={setIsSideDrawerOpen}/>
+        <SideDrawer isOpen={isSideDrawerOpen} onToggle={setIsSideDrawerOpen}/>
     </div>
   );
 };

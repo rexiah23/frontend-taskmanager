@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TopBar = ({ setOpenSideDrawer }) => {
+const TopBar = ({ onToggle }) => {
   const classes = useStyles();
 
   return (
@@ -25,7 +25,7 @@ const TopBar = ({ setOpenSideDrawer }) => {
           <h1 className={classes.title}>ToDo</h1>
           <Button 
             className={classes.button} 
-            onClick={() => setOpenSideDrawer(true)}
+            onClick={() => onToggle(true)}
             >
             Change Background</Button>
         </Toolbar>

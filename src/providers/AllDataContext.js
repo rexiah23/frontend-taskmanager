@@ -11,6 +11,7 @@ const AllDataProvider = (props) => {
     axios.get(url)
     .then(response => {
       setData(response.data.refactoredData);
+      console.log('RESPONSEE', response.data.refactoredData)
     })
     .catch(err => {
       console.log(err.message)
