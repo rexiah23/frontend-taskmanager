@@ -22,6 +22,7 @@ const DraggableList = ({
   value, 
   onChange, 
   children, 
+  style : userStyles = {},
 }) => {
   const classes = useStyle()
 
@@ -38,7 +39,7 @@ const DraggableList = ({
     <Draggable draggableId={`${memoizedState.id}_`} index={memoizedState.index}>
       {(provided) => (
         <div {...provided.draggableProps} ref={provided.innerRef}>
-          <Paper className={classes.root} {...provided.dragHandleProps}>
+          <Paper className={classes.root} {...provided.dragHandleProps} style={userStyles}>
             <CssBaseline />
             <DraggableListTitle value={memoizedState.title} onChange={changeTitleHandler} onDelete={memoizedState.deleteHandler}/>
               <Droppable droppableId={`${memoizedState.id}_`}>
@@ -55,7 +56,6 @@ const DraggableList = ({
                   </div>
                 )}
               </Droppable>
-            <AddNewTaskOrList listId={`${memoizedState.id}_`} type="task"/>
           </Paper>
         </div>
       )}

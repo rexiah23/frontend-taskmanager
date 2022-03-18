@@ -21,26 +21,25 @@ const useStyle = makeStyles((theme) => ({
 const ItemCard = ({ value, deleteHandler }) => {
   const classes = useStyle(); 
   const {id, index, content} = value; 
-
   return (
-      <Draggable draggableId={`${id}`} index={index}>
-        {(provided) => {
-          return (
-            <div
-            ref={provided.innerRef}
-            {...provided.dragHandleProps}
-            {...provided.draggableProps}
-          >
+      // <Draggable draggableId={`${id}`} index={index}>
+      //   {(provided) => {
+      //     return (
+      //       <div
+      //       ref={provided.innerRef}
+      //       {...provided.dragHandleProps}
+      //       {...provided.draggableProps}
+      //     >
             <Paper className={classes.taskCard}>
               {content}
               <IconButton className={classes.button} onClick={() => deleteHandler(value, 'value')}>
                 <RemoveCircleOutlineIcon fontSize='small'/>
               </IconButton>
             </Paper>
-          </div>
-          )
-        }}
-      </Draggable>
+      //     </div>
+      //     )
+      //   }}
+      // </Draggable>
   );
 
 };

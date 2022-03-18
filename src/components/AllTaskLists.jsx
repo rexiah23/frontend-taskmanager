@@ -16,7 +16,7 @@ const useStyle = makeStyles(theme => ({
   }
 }))
 
-const AllLists = () => {
+const AllTaskLists = () => {
   const classes = useStyle()
   const { data, updateOnDragEnd, updateListTitleHandler } = useContext(AllDataContext)
 
@@ -55,4 +55,4 @@ const AllLists = () => {
   );
 }
 
-export default AllLists;
+export default AllTaskLists;
