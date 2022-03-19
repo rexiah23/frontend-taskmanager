@@ -6,6 +6,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 import ListTitle from './ListTitle';
 import { MakeDroppable } from '../../hocs/MakeDroppable';
+import AddNewTaskOrList from '../../AddNewTaskOrList';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -23,7 +24,7 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-export const DraggableListContext = createContext(); 
+export const ListContext = createContext(); 
 
 const List = ({ 
   index,
@@ -43,8 +44,6 @@ const List = ({
   const deleteListHandler = () => {
     onDelete(listValues, 'list')
   }
-
-  // console.log('onDelete', onDelete)
   
   const memoizedState = useMemo(() => ({
     id,
@@ -56,7 +55,7 @@ const List = ({
   }), [id, title, tasks, index, onDelete, changeTitleHandler])
 
   return (
-    <DraggableListContext.Provider value={memoizedState}>
+    <ListContext.Provider value={memoizedState}>
       <Paper className={classes.root} style={userStyles}>
         <CssBaseline />
         <div className={classes.titleAndDelete}>
@@ -65,11 +64,12 @@ const List = ({
             <ClearIcon />
           </IconButton>
         </div>
-          <MakeDroppable id={`${memoizedState.id}_`}>
+          <MakeDroppable id={`${memoizedState.id}_`} className={classes.tasksContainer}>
               {children}
           </MakeDroppable>
+          <AddNewTaskOrList listId={id} type='task'/>
       </Paper>
-    </DraggableListContext.Provider>
+    </ListContext.Provider>
   );
 };
 

@@ -46,7 +46,6 @@ const AllTaskLists = () => {
             {/* <TotalTaskCardsCounter /> */}
           </List>
         </MakeDraggable>
-        <AddNewTaskOrList listId={listId} type="task"/>
       </>
     )
   });
