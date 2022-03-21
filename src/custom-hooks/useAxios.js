@@ -43,7 +43,6 @@ const useAxios = () => {
 
   const sendRequest = useCallback(
       (url, method, body=null, headers=null, reqExtra=null, reqIdentifier=null) => {
-        console.log('reqIdentifier', reqIdentifier)
         dispatchHttp({ type: 'SEND', identifier: reqIdentifier });
         axios[method](url, headers, body)
             .then((res) => {
@@ -68,7 +67,7 @@ const useAxios = () => {
     sendRequest,
     reqExtra: httpState.extra,
     reqIdentifier: httpState.identifier,
-    clear
+    clear: clear
   };
 };
 
