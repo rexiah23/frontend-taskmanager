@@ -9,7 +9,7 @@ const ColorsAndImagesProvider = ({ children }) => {
   const [imageUrls, setImageUrls] = useState([]);
   const [selectedBackground, setSelectedBackground] = useState(); 
   const [isLoading, setIsLoading] = useState(false)
-
+  
   useEffect(() => {
     const page = Math.floor(Math.random() * 50 + 1); 
     const imageApiUrl = 

@@ -79,11 +79,16 @@ const SideDrawer = ({ isOpen, onToggle }) => {
 						<Grow in={isImagesShown}>
 							<div className={classes.optionsContainer}>
 								{imageUrls.map((image, index) => (
-									<DisplayBox
-										key={image.urls}
+									<div
+										key={index}
+										className={classes.box}
+										style={{
+											backgroundImage: `url(${image.urls.full})`,
+											backgroundRepeat: 'no-repeat',
+											backgroundSize: 'cover',
+										}}
 										onClick={() => updateSelectedBackground(image.urls.full)}
-										background={`url(${image.urls.full})`}
-									/>
+									></div>
 								))}
 							</div>
 						</Grow>

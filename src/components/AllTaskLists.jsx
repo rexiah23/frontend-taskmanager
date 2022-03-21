@@ -30,37 +30,68 @@ const AllTaskLists = () => {
 		return <h1>loading...</h1>
 	}
 
-	const allLists = data.listIds.map((listId, index) => {
-		const list = data.lists[listId]
-		return (
-			<>
-				<MakeDraggable key={`${list.id}_`} id={`${list.id}_`} index={index}>
-					<List
-						key={list.id}
-						index={index}
-						value={{
-							id: list.id,
-							title: list.title,
-							tasks: list.tasks,
-						}}
-						onChange={updateListTitleHandler}
-						onDelete={deleteHandler}
-					>
-						<TaskCards />
-						{/* <CurrentlyInProgressTaskCard /> */}
-						{/* <TotalTaskCardsCounter /> */}
-					</List>
-				</MakeDraggable>
-			</>
-		)
-	})
+	console.log('data', data)
+
+	// const allLists =
+	// 	data &&
+	// 	data.listIds.map((listId, index) => {
+	// 		const list = data.lists[listId]
+	// 		return (
+	// 			<>
+	// 				<MakeDraggable key={`${list.id}_`} id={`${list.id}_`} index={index}>
+	// 					<List
+	// 						key={list.id}
+	// 						index={index}
+	// 						value={{
+	// 							id: list.id,
+	// 							title: list.title,
+	// 							tasks: list.tasks,
+	// 						}}
+	// 						onChange={updateListTitleHandler}
+	// 						onDelete={deleteHandler}
+	// 					>
+	// 						<TaskCards />
+	// 						{/* <CurrentlyInProgressTaskCard /> */}
+	// 						{/* <TotalTaskCardsCounter /> */}
+	// 					</List>
+	// 				</MakeDraggable>
+	// 			</>
+	// 		)
+	// 	})
 
 	return (
 		<DragDropContext onDragEnd={updateOnDragEnd}>
 			<div className={classes.root}>
 				<MakeDroppable id="app" type="list" direction="horizontal">
 					<div className={classes.lists}>
-						{allLists}
+						{/* {allLists} */}
+						{data &&
+							data.data.refactoredData.listIds.map((listId, index) => {
+								const list = data.data.refactoredData.lists[listId]
+								return (
+									<MakeDraggable
+										key={`${list.id}_`}
+										id={`${list.id}_`}
+										index={index}
+									>
+										<List
+											key={list.id}
+											index={index}
+											value={{
+												id: list.id,
+												title: list.title,
+												tasks: list.tasks,
+											}}
+											onChange={updateListTitleHandler}
+											onDelete={deleteHandler}
+										>
+											<TaskCards />
+											{/* <CurrentlyInProgressTaskCard />
+												<TotalTaskCardsCounter /> */}
+										</List>
+									</MakeDraggable>
+								)
+							})}
 						<AddNewTaskOrList type="list" />
 					</div>
 				</MakeDroppable>

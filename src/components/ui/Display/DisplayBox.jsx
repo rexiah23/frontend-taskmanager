@@ -16,20 +16,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }))
 
-const DisplayBox = ({ onClick, background }) => {
+const DisplayBox = ({ onClick, background, style: userStyles = null }) => {
 	const classes = useStyles()
 
-	return (
-		<div
-			className={classes.box}
-			onClick={onClick}
-			style={{
-				background: `${background}`,
-				backgroundRepeat: 'no-repeat',
-				backgroundSize: 'cover',
-			}}
-		/>
-	)
+	return <div className={classes.box} onClick={onClick} style={userStyles} />
 }
 
 export default DisplayBox
