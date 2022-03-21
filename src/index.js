@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { AllDataProvider } from './providers/AllDataContext';
+import { AllTasksProvider } from './providers/AllTasksContext';
 import { ColorsAndImagesProvider } from './providers/ColorsAndImagesContext';
 import axios from 'axios'; 
 require('dotenv').config()
@@ -15,11 +15,11 @@ if (process.env.REACT_APP_API_BASE_URL) {
 }
 
 ReactDOM.render(
-  <AllDataProvider>
+  <AllTasksProvider>
     <ColorsAndImagesProvider>
       <App />
     </ColorsAndImagesProvider>
-  </AllDataProvider>,
+  </AllTasksProvider>,
   document.getElementById('root')
 );
 

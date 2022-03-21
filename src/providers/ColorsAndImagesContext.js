@@ -6,6 +6,7 @@ import config from '../config/config';
 const ColorsAndImagesContext = React.createContext(); 
 
 const ColorsAndImagesProvider = ({ children }) => {
+
   const [imageUrls, setImageUrls] = useState([]);
   const [selectedBackground, setSelectedBackground] = useState(); 
   const [isLoading, setIsLoading] = useState(false)
@@ -36,7 +37,6 @@ const ColorsAndImagesProvider = ({ children }) => {
 
   const updateSelectedBackground = (backgroundUrl) => {
     const url = `/api/background`;
-    // setSelectedBackground(backgroundUrl)
     axios.put(url, {backgroundUrl})
       .then(() => setSelectedBackground(backgroundUrl))
       .catch(err => console.log(err.message));

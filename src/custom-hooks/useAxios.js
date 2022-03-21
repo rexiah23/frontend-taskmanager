@@ -43,8 +43,9 @@ const useAxios = () => {
 
   const sendRequest = useCallback(
       (url, method, body=null, headers=null, reqExtra=null, reqIdentifier=null) => {
+        console.log('reqIdentifier', reqIdentifier)
         dispatchHttp({ type: 'SEND', identifier: reqIdentifier });
-        axios[method](url, JSON.parse(headers), JSON.parse(body))
+        axios[method](url, headers, body)
             .then((res) => {
                 dispatchHttp({
                     type: 'RESPONSE',
@@ -66,8 +67,8 @@ const useAxios = () => {
     error: httpState.error,
     sendRequest,
     reqExtra: httpState.extra,
-    reqIdentifer: httpState.identifier,
-    clear: clear
+    reqIdentifier: httpState.identifier,
+    clear
   };
 };
 

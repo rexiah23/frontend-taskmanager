@@ -19,7 +19,7 @@ const AddItemButton = ({ label, onClick }) => {
 	const classes = useStyle()
 	return (
 		<Paper className={classes.addTask} elevation={0} onClick={onClick}>
-			<Typography>{label}</Typography>
+			<Typography>{`+ ${label}`}</Typography>
 		</Paper>
 	)
 }
