@@ -4,9 +4,8 @@ import axios from 'axios';
 const AllDataContext = React.createContext(); 
 
 const AllDataProvider = (props) => {
-  const [data, setData] = useState();
-  
 
+  const [data, setData] = useState('loading...');
   useEffect(() => {
     const url = '/api/task/all';
     axios.get(url)

@@ -36,10 +36,10 @@ const ColorsAndImagesProvider = ({ children }) => {
 
   const updateSelectedBackground = (backgroundUrl) => {
     const url = `/api/background`;
-    setSelectedBackground(backgroundUrl)
-    // axios.put(url, {backgroundUrl})
-    // // .then(() => setSelectedBackground(backgroundUrl))
-    // .catch(err => console.log(err.message));
+    // setSelectedBackground(backgroundUrl)
+    axios.put(url, {backgroundUrl})
+      .then(() => setSelectedBackground(backgroundUrl))
+      .catch(err => console.log(err.message));
   }
   
   if (isLoading) {
