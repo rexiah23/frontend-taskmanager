@@ -4,7 +4,7 @@ const AllBackgroundImages = React.memo(({ imageUrls, onChange }) => {
   console.log('this ran');
   return (
     <>
-      {imageUrls.map((image, index) => (
+      {imageUrls.map(image => (
                   // <div
                   //   key={index} 
                   //   className={classes.box}
@@ -16,7 +16,7 @@ const AllBackgroundImages = React.memo(({ imageUrls, onChange }) => {
                   //   onClick={() => updateSelectedBackground(image.urls.full)}
                   // ></div>
                   <DisplayBox 
-                    key={index}
+                    key={image.urls}
                     onClick={() => onChange(image.urls.full)}
                     background={`url(${image.urls.full})`}
                   />
