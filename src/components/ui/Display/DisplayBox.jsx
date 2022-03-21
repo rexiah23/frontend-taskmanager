@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }))
 
-const DisplayBox = ({ onClick, background, style: userStyles = null }) => {
+const DisplayBox = ({ onClick, style: userStyles = null }) => {
 	const classes = useStyles()
 
 	return <div className={classes.box} onClick={onClick} style={userStyles} />
