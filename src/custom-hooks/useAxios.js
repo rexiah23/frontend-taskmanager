@@ -44,7 +44,7 @@ const useAxios = () => {
   const sendRequest = useCallback(
       (url, method, body=null, headers=null, reqExtra=null, reqIdentifier=null) => {
         dispatchHttp({ type: 'SEND', identifier: reqIdentifier });
-        axios[method](url, headers, body)
+        axios[method](url, body, headers)
             .then((res) => {
                 dispatchHttp({
                     type: 'RESPONSE',
