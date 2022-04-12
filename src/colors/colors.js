@@ -13,4 +13,5 @@ const colors = [
   '#9027B5'
 ]
 
+"added new ocmment to colors"
 export default colors; 
